@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+<<<<<<< HEAD
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+=======
+>>>>>>> ed30d43 (first commit)
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+<<<<<<< HEAD
     use HasFactory, Notifiable;
 
     /**
@@ -44,4 +48,30 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+=======
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
+
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $fillable = ['name','email','password'];
+
+
+    // protected $hidden = [
+    //     'password',
+    //     'remember_token',
+    // ];
+
+
+    // protected function casts(): array
+    // {
+    //     return [
+    //         'email_verified_at' => 'datetime',
+    //         'password' => 'hashed',
+    //     ];
+    // }
+>>>>>>> ed30d43 (first commit)
 }

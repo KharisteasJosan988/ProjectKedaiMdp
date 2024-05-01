@@ -1,7 +1,63 @@
 <?php
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+=======
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\UploadController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [AuthController::class, 'index'])->name('auth.index');
+Route::post('/auth/verify', [AuthController::class, 'verify'])->name('auth.verify');
+
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/dashboard', [DashboardController::class, 'user'])->name('user.dashboard.index');
+    Route::get('/admin/dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard.index');
+});
+
+Route::get('/forgot-password', [PasswordController::class, 'showResetForm'])->name('password.request');
+Route::post('/forgot-password', [PasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [PasswordController::class, 'showResetPasswordForm'])->name('password.reset');
+Route::post('/reset-password', [PasswordController::class, 'resetPassword'])->name('password.update');
+
+Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+Route::group(['middleware' => 'auth:admin'], function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard.index');
+});
+
+Route::group(['middleware' => 'auth:user'], function () {
+    Route::get('/user/dashboard', [DashboardController::class, 'user'])->name('user.dashboard.index');
+});
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::get('/form-tambah-contact', [ContactController::class, 'formTambah'])->name('contact.formTambah');
+Route::post('/contact/tambah', [ContactController::class, 'prosesTambah'])->name('contact.prosesTambah');
+Route::get('/contact/{id}/edit', [ContactController::class, 'edit'])->name('contact.edit');
+Route::put('/contact/update/{id}', [ContactController::class, 'update'])->name('contact.update');
+Route::delete('/contact/{id}', [ContactController::class, 'hapus'])->name('contact.hapus');
+
+Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+Route::get('/form-tambah', [MenuController::class, 'formTambah'])->name('menu.formTambah');
+Route::post('/menu/tambah', [MenuController::class, 'prosesTambah'])->name('menu.prosesTambah');
+Route::get('/menu/{id}/ubah', [MenuController::class, 'formUbah'])->name('menu.formUbah');
+Route::post('/menu/ubah/{id}', [MenuController::class, 'prosesUbah'])->name('menu.prosesUbah');
+Route::delete('/menu/{id}', [MenuController::class, 'hapus'])->name('menu.hapus');
+
+Route::get('/upload', [UploadController::class, 'form'])->name('upload.form');
+Route::post('/upload', [UploadController::class, 'proses'])->name('upload.proses');
+>>>>>>> ed30d43 (first commit)

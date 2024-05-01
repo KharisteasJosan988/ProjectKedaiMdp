@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Kedai Mdp - Reset Password</title>
+    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-light">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header bg-success">
+                                    <h3 class="text-center font-weight-light my-4">Reset Password Kedai Mdp</h3>
+                                </div>
+                                <div class="card-body">
+                                    @if (session('status'))
+                                        <div>{{ session('status') }}</div>
+                                    @endif
+
+                                    <form action="{{ route('password.email') }}" method="POST">
+                                        @csrf
+                                        <input type="email" name="email" placeholder="Email" required>
+                                        <button type="submit">Send Password Reset Link</button>
+                                    </form>
+                                </div>
+                                <div class="card-footer text-center py-3">
+                                    <div class="small"><a href="{{ route('register') }}">Belum punya akun? Daftarkan
+                                            sekarang!</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+</body>
+
+</html>

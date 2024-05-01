@@ -29,6 +29,7 @@ return [
     */
 
     'disks' => [
+<<<<<<< HEAD
 
         'local' => [
             'driver' => 'local',
@@ -42,6 +43,14 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
+=======
+        'public' => [
+            'driver' => 'local',
+            'root' => public_path('img'),
+            'url' => env('APP_URL') . '/img',
+            'visibility' => 'public',
+
+>>>>>>> ed30d43 (first commit)
         ],
 
         's3' => [
