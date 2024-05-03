@@ -1,12 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-=======
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
@@ -15,6 +9,10 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
 Route::get('/', [AuthController::class, 'index'])->name('auth.index');
 Route::post('/auth/verify', [AuthController::class, 'verify'])->name('auth.verify');
@@ -60,4 +58,3 @@ Route::delete('/menu/{id}', [MenuController::class, 'hapus'])->name('menu.hapus'
 
 Route::get('/upload', [UploadController::class, 'form'])->name('upload.form');
 Route::post('/upload', [UploadController::class, 'proses'])->name('upload.proses');
->>>>>>> ed30d43 (first commit)

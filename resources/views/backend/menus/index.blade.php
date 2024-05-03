@@ -48,7 +48,7 @@
                         </a>
 
                         <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link" href="{{route('backend.menu.index')}}">
+                        <a class="nav-link" href="{{ route('menu.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-cutlery"></i></div>
                             Menu
                         </a>
@@ -71,7 +71,7 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Admin</li>
                     </ol>
-                    <form action="{{ route('backend.menu.formTambah') }}" method="GET">
+                    <form action="{{ route('menu.formTambah') }}" method="GET">
                         <button class="btn btn-info" type="submit">
                             <i class="fas fa-plus"></i>
                             Tambah Menu
@@ -92,20 +92,20 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($menus as $menu)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                @foreach ($menus as $index => $menu)
+                                    <tr id="row_{{ $index }}">
+                                        <td>{{ $index + 1 }}</td>
                                         <td>{{ $menu->jenis }}</td>
                                         <td>{{ $menu->nama }}</td>
                                         <td>{{ number_format($menu->harga, 0) }}</td>
-                                        <td><img src="{{ $menu->gambar_url }}" alt="{{ $menu->nama }}"
+                                        <td><img src="{{ asset($menu->gambar) }}" alt="{{ $menu->nama }}"
                                                 width="100"></td>
                                         <td>
-                                            <a href="{{ route('backend.menu.formUbah', ['id' => $menu->id]) }}"
+                                            <a href="{{ route('menu.formUbah', ['id' => $menu->id]) }}"
                                                 class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('backend.menu.hapus', $menu->id) }}" method="POST"
+                                            <form action="{{ route('menu.hapus', $menu->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
@@ -181,40 +181,31 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    deleteContact(id);
+                    deleteMenu(id);
                 }
             });
         }
 
-        function deleteContact(id) {
-            fetch(`{{ route('contact.hapus', ':id') }}`.replace(':id', id), {
+        function deleteMenu(id) {
+            fetch(`{{ route('menu.hapus', ':id') }}`.replace(':id', id), {
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
             }).then(response => {
                 if (response.ok) {
-                    window.location.reload();
+                    document.getElementById('row_' + id).remove();
+                    Swal.fire('Sukses!', 'Menu berhasil dihapus.', 'success');
                 } else {
-                    console.error('Ada masalah di operasi fetch');
-                    Swal.fire(
-                        'Gagal!',
-                        'Tidak dapat menghapus kontak.',
-                        'error'
-                    );
+                    console.error('Gagal menghapus kontak');
+                    Swal.fire('Gagal!', 'Tidak dapat menghapus menu.', 'error');
                 }
             }).catch(error => {
-                console.error('Ada masalah di operasi fetch', error);
-                Swal.fire(
-                    'Gagal!',
-                    'Tidak dapat menghapus kontak.',
-                    'error'
-                );
+                console.error('Terjadi kesalahan:', error);
+                Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus menu.', 'error');
             });
         }
     </script>
-
-
 
     <script>
         function tampilkanReview(gambar, idPreview)

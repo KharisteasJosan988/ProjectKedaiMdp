@@ -13,7 +13,7 @@ class MenuController extends Controller
         $menus = Menu::all();
 
         foreach ($menus as $menu) {
-            $menu->gambar_url = asset('storage/' . $menu->gambar);
+            $menu->gambar_url = asset('menu_images/' . $menu->gambar);
         }
 
         return view('backend.menus.index', compact('menus'));
@@ -34,8 +34,12 @@ class MenuController extends Controller
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Batasan ukuran gambar: 2MB
         ]);
 
+        $gambar = $request->file('gambar');
+        $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
+        $gambar->move(public_path('menu_images'), $nama_gambar);
+
         // Menyimpan gambar
-        $gambarPath = $request->file('gambar')->store('menu_images');
+        $gambarPath = 'menu_images/' . $nama_gambar;
 
         // Membuat record baru dalam database
         Menu::create([
@@ -45,7 +49,7 @@ class MenuController extends Controller
             'gambar' => $gambarPath,
         ]);
 
-        return redirect()->route('backend.menu.index')->with('success', 'Menu berhasil ditambahkan.');
+        return redirect()->route('backend.menus.index')->with('success', 'Menu berhasil ditambahkan.');
     }
 
     public function formUbah($id)
@@ -74,20 +78,17 @@ class MenuController extends Controller
             'harga' => $request->harga,
         ]);
 
-        return redirect()->route('backend.menu.index')->with('success', 'Menu berhasil diupdate.');
+        return redirect()->route('backend.menus.index')->with('success', 'Menu berhasil diupdate.');
     }
 
     public function hapus($id)
     {
-        // Menemukan menu yang akan dihapus
-        $menu = Menu::findOrFail($id);
-
-        // Menghapus gambar dari penyimpanan
-        Storage::delete($menu->gambar);
-
-        // Menghapus menu dari database
-        $menu->delete();
-
-        return redirect()->route('enu.index')->with('success', 'Menu berhasil dihapus.');
+        try {
+            $menu = Menu::findOrFail($id);
+            $menu->delete();
+            return response()->json(['message' => 'Menu berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal menghapus menu: ' . $e->getMessage()], 500);
+        }
     }
 }

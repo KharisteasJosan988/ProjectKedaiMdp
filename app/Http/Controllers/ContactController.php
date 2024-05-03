@@ -60,9 +60,9 @@ class ContactController extends Controller
         try {
             $contact = Contact::findOrFail($id);
             $contact->delete();
-            return redirect()->route('contact.index')->with('success', 'Kontak berhasil dihapus');
+            return response()->json(['message' => 'Kontak berhasil dihapus'], 200);
         } catch (\Exception $e) {
-            return redirect()->route('contact.index')->with('error', 'Gagal menghapus kontak: ' . $e->getMessage());
+            return response()->json(['error' => 'Gagal menghapus kontak: ' . $e->getMessage()], 500);
         }
     }
 }

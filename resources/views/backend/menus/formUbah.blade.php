@@ -72,7 +72,7 @@ ini form ubah
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Admin</li>
                     </ol>
-                    <form action="{{ route('backend.menu.prosesUbah', ['id' => $menu->id]) }}" method="POST">
+                    <form action="{{ route('menu.prosesUbah', ['id' => $menu->id]) }}" method="POST">
                         @csrf
                         @method('POST')
                         <div class="mb-3">
@@ -101,7 +101,7 @@ ini form ubah
                             <img id="preview" src="{{ asset($menu->gambar) }}" alt="Preview" width="200">
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="{{ route('backend.menu.index') }}" class="btn btn-secondary">Kembali</a>
+                        <a href="{{ route('menu.index') }}" class="btn btn-secondary">Kembali</a>
                     </form>
                 </div>
             </main>

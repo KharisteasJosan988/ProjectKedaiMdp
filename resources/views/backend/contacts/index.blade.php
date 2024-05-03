@@ -89,7 +89,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($contacts as $index => $contact)
-                                    <tr>
+                                    <tr id="row_{{ $contact->id }}">
                                         <td>{{ $index + 1 }}</td>
                                         <td>{!! $contact->konten !!}</td>
                                         <td>
@@ -186,22 +186,19 @@
                 }
             }).then(response => {
                 if (response.ok) {
-                    window.location.reload();
+                    // Hapus baris tabel dari DOM
+                    document.getElementById('row_' + id).remove();
+                    // Tampilkan pesan sukses menggunakan Swal
+                    Swal.fire('Sukses!', 'Kontak berhasil dihapus.', 'success');
                 } else {
-                    console.error('Ada masalah di operasi fetch');
-                    Swal.fire(
-                        'Gagal!',
-                        'Tidak dapat menghapus kontak.',
-                        'error'
-                    );
+                    // Tangani kasus jika respons tidak berhasil
+                    console.error('Gagal menghapus kontak');
+                    Swal.fire('Gagal!', 'Tidak dapat menghapus kontak.', 'error');
                 }
             }).catch(error => {
-                console.error('Ada masalah di operasi fetch', error);
-                Swal.fire(
-                    'Gagal!',
-                    'Tidak dapat menghapus kontak.',
-                    'error'
-                );
+                // Tangani kasus jika terjadi kesalahan pada operasi fetch
+                console.error('Terjadi kesalahan:', error);
+                Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus kontak.', 'error');
             });
         }
     </script>

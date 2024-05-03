@@ -40,8 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-<<<<<<< HEAD
-=======
 
         'admin' => [
             'driver' => 'session',
@@ -52,7 +50,6 @@ return [
             'driver' => 'session',
             'provider' => 'user',
         ],
->>>>>>> ed30d43 (first commit)
     ],
 
     /*
@@ -77,8 +74,6 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-<<<<<<< HEAD
-=======
         'admin' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Admin::class),
@@ -88,7 +83,6 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
->>>>>>> ed30d43 (first commit)
 
         // 'users' => [
         //     'driver' => 'database',
