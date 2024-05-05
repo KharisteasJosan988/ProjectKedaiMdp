@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MenuController;
@@ -55,6 +56,42 @@ Route::post('/menu/tambah', [MenuController::class, 'prosesTambah'])->name('menu
 Route::get('/menu/{id}/ubah', [MenuController::class, 'formUbah'])->name('menu.formUbah');
 Route::post('/menu/ubah/{id}', [MenuController::class, 'prosesUbah'])->name('menu.prosesUbah');
 Route::delete('/menu/{id}', [MenuController::class, 'hapus'])->name('menu.hapus');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/form-tambah', [CartController::class, 'formTambah'])->name('cart.formTambah');
+Route::post('/cart/tambah', [CartController::class, 'prosesTambah'])->name('cart.prosesTambah');
+Route::get('/cart/{id}/ubah', [CartController::class, 'formUbah'])->name('cart.formUbah');
+Route::post('/cart/ubah/{id}', [CartController::class, 'prosesUbah'])->name('cart.prosesUbah');
+Route::delete('/cart/{id}', [CartController::class, 'hapus'])->name('cart.hapus');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/upload', [UploadController::class, 'form'])->name('upload.form');
 Route::post('/upload', [UploadController::class, 'proses'])->name('upload.proses');

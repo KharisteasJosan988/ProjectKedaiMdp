@@ -16,7 +16,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">
+        <a class="navbar-brand ps-3" href="{{route('admin.dashboard.index')}}">
             <img src="{{ asset('assets/img/logo-kedai-mdp.svg') }}" alt="Kedai Mdp Logo">Kedai Mdp
         </a>
         <!-- Sidebar Toggle-->
@@ -48,7 +48,7 @@
                         </a>
 
                         <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link" href="{{ route('backend.menu.index') }}">
+                        <a class="nav-link" href="{{ route('menu.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-cutlery"></i></div>
                             Menu
                         </a>
