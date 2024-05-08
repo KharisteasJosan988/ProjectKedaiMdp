@@ -72,7 +72,7 @@ ini form ubah
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Admin</li>
                     </ol>
-                    <form action="{{ route('menu.prosesUbah', ['id' => $menu->id]) }}" method="POST">
+                    <form action="{{ route('menu.prosesUbah', ['id' => $menu->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="mb-3">
@@ -92,7 +92,7 @@ ini form ubah
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga</label>
                             <input type="text" class="form-control" id="harga" name="harga"
-                                value="{{ number_format($menu->harga, 0) }}">
+                                value="{{$menu->harga}}">
                         </div>
                         <div class="mb-3">
                             <label for="gambar" class="form-label">Gambar</label>
@@ -100,6 +100,7 @@ ini form ubah
                                 onchange="tampilkanPreview(this, 'preview')">
                             <img id="preview" src="{{ asset($menu->gambar) }}" alt="Preview" width="200">
                         </div>
+                        <input type="hidden" id="gambarmenu" value="">
                         <button type="submit" class="btn btn-primary">Simpan</button>
                         <a href="{{ route('menu.index') }}" class="btn btn-secondary">Kembali</a>
                     </form>
@@ -141,7 +142,7 @@ ini form ubah
 
     <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
-    <script>
+    {{-- <script>
         ClassicEditor
             .create(document.querySelector('#konten'))
             .then(editor => {
@@ -170,7 +171,33 @@ ini form ubah
         $(document).ready(function() {
             tampilkanPreview($('#gambar')[0], 'preview');
         });
+    </script> --}}
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
+
+    <script>
+        function tampilkanPreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    document.getElementById('preview').src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]); // Membaca data URL dari file yang dipilih
+            }
+        }
+    </script>
+
 </body>
 
 </html>

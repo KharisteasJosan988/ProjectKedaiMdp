@@ -37,7 +37,7 @@
                                             <label for="inputPassword">Password</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="{{ route('password.request') }}">Lupa Password?</a>
+                                            <a class="small" href="{{ url('/forgot-password') }}">Lupa Password?</a>
                                             <button type="submit" class="btn btn-primary">Login</button>
                                         </div>
                                     </form>

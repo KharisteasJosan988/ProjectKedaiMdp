@@ -10,6 +10,14 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schedule;
+use PgSql\Result;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,11 +35,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/dashboard', [DashboardController::class, 'user'])->name('user.dashboard.index');
     Route::get('/admin/dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard.index');
 });
-
-Route::get('/forgot-password', [PasswordController::class, 'showResetForm'])->name('password.request');
-Route::post('/forgot-password', [PasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-Route::get('/reset-password/{token}', [PasswordController::class, 'showResetPasswordForm'])->name('password.reset');
-Route::post('/reset-password', [PasswordController::class, 'resetPassword'])->name('password.update');
 
 Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
@@ -64,14 +67,10 @@ Route::get('/cart/{id}/ubah', [CartController::class, 'formUbah'])->name('cart.f
 Route::post('/cart/ubah/{id}', [CartController::class, 'prosesUbah'])->name('cart.prosesUbah');
 Route::delete('/cart/{id}', [CartController::class, 'hapus'])->name('cart.hapus');
 
-
-
-
-
-
-
-
-
+Route::get('/forgot-password', [PasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [PasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [PasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [PasswordController::class, 'reset'])->name('password.update');
 
 
 

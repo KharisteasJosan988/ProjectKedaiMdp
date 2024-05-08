@@ -21,17 +21,27 @@
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header bg-success">
-                                    <h3 class="text-center font-weight-light my-4">Reset Password Kedai Mdp</h3>
+                                    <h3 class="text-center font-weight-light my-4">Lupa Password Kedai Mdp</h3>
                                 </div>
                                 <div class="card-body">
                                     @if (session('status'))
                                         <div>{{ session('status') }}</div>
                                     @endif
 
-                                    <form action="{{ route('password.email') }}" method="POST">
+                                    <form action="{{ url('/forgot-password') }}" method="POST">
                                         @csrf
-                                        <input type="email" name="email" placeholder="Email" required>
-                                        <button type="submit">Send Password Reset Link</button>
+                                        <div class="mb-3">
+                                            <label for="email">Email :</label>
+                                            <input type="email" name="email" id="email" placeholder="Email" class="form-control"
+                                                value="{{ old('email') }}" required autofocus>
+                                            @error('email')
+                                                <span>{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="mb-3 text-center">
+                                            <button type="submit" class="btn btn-primary w-100 mt-3">Send Password Reset Link</button>
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">

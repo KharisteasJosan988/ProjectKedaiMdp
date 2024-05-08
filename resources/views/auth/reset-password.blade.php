@@ -2,31 +2,76 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Kedai Mdp - Reset Password</title>
+    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <h2>Reset Password</h2>
-    @if ($errors->any())
-        <div>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+<body class="bg-light">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header bg-success">
+                                    <h3 class="text-center font-weight-light my-4">Reset Password Kedai Mdp</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form action="{{ url('/reset-password') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="token" value="{{ $token }}">
 
-    <form action="{{ route('password.update') }}" method="POST">
-        @csrf
-        <input type="hidden" name="token" value="{{ $token }}">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="New Password" required>
-        <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
-        <button type="submit">Reset Password</button>
-    </form>
+                                        <div class="mb-3">
+                                            <label for="email">Email :</label>
+                                            <input type="email" name="email" id="email" class="form-control"
+                                                placeholder="Email" value="{{ $email }}" required autofocus>
+                                            @error('email')
+                                                <span>{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="password">New Password :</label>
+                                            <input type="password" name="password" class="form-control" id="password"
+                                                placeholder="New Password" required>
+                                            @error('password')
+                                                <span>{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="password_confirmation">Confirm Password :</label>
+                                            <input type="password" name="password_confirmation" class="form-control"
+                                                id="password_confirmation" placeholder="Confirm Password" required>
+                                        </div>
+
+                                        <div>
+                                            <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer text-center py-3">
+                                    <div class="small"><a href="{{ route('register') }}">Belum punya akun? Daftarkan
+                                            sekarang!</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
 </body>
 
 </html>

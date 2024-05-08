@@ -66,16 +66,25 @@ class MenuController extends Controller
             'jenis' => 'required',
             'nama' => 'required',
             'harga' => 'required',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Menemukan menu yang akan diubah
         $menu = Menu::findOrFail($id);
+
+        $gambar = $request->file('gambar');
+        $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
+        $gambar->move(public_path('menu_images'), $nama_gambar);
+
+        // Menyimpan gambar
+        $gambarPath = 'menu_images/' . $nama_gambar;
 
         // Menyimpan perubahan pada menu
         $menu->update([
             'jenis' => $request->jenis,
             'nama' => $request->nama,
             'harga' => $request->harga,
+            'gambar' => $gambarPath,
         ]);
 
         return redirect()->route('menu.index')->with('success', 'Menu berhasil diupdate.');
