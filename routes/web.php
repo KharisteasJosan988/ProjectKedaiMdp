@@ -28,7 +28,9 @@ Route::post('/auth/verify', [AuthController::class, 'verify'])->name('auth.verif
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Rute untuk menampilkan formulir pendaftaran
+Route::get('/register', [RegisterController::class, 'formRegister'])->name('register');
+// Rute untuk memproses pendaftaran
 Route::post('/register', [RegisterController::class, 'register']);
 
 Route::middleware(['auth'])->group(function () {

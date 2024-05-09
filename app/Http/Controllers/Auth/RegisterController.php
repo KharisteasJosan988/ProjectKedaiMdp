@@ -6,46 +6,46 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
     /**
-     * Display the registration view.
+     * Show the registration form.
      *
      * @return \Illuminate\View\View
      */
-    public function showRegistrationForm()
+    public function formRegister()
     {
         return view('auth.register');
     }
 
     /**
-     * Handle an incoming registration request.
+     * Handle a registration request for the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
     {
-        // Validate the incoming request
+        // Validasi input
         $request->validate([
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|confirmed',
         ]);
 
-        // Create a new user
+        // Buat pengguna baru
         $user = new User();
+        $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-
-        // Save the user to the database
         $user->save();
 
-        // Log in the user after registration
-        auth()->login($user);
+        // Set session flash untuk notifikasi
+        Session::flash('success', 'Registrasi berhasil! Anda dapat login sekarang.');
 
-        // Redirect to the dashboard or any other page
-        return redirect()->route('dashboard');
+        // Redirect pengguna setelah pendaftaran berhasil
+        return redirect()->route('login');
     }
 }
