@@ -54,7 +54,7 @@
                                             <label for="inputPasswordConfirmation">Konfirmasi Password</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <button type="submit" class="btn btn-primary">Daftar</button>
+                                            <button type="submit" class="btn btn-primary w-100">Daftar</button>
                                         </div>
                                     </form>
 

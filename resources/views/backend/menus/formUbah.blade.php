@@ -57,6 +57,10 @@ ini form ubah
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
                         </a>
+                        <a class="nav-link" href="{{route('galeri.index')}}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
+                            Galeri
+                        </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

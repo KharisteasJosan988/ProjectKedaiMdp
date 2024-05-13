@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard Admin</title>
+    <title>Contact Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -55,6 +55,10 @@
                         <a class="nav-link" href="tables.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
+                        </a>
+                        <a class="nav-link" href="{{route('galeri.index')}}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
+                            Galeri
                         </a>
                     </div>
                 </div>

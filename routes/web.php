@@ -1,13 +1,13 @@
 <?php
 
-
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -63,7 +63,7 @@ Route::post('/menu/ubah/{id}', [MenuController::class, 'prosesUbah'])->name('men
 Route::delete('/menu/{id}', [MenuController::class, 'hapus'])->name('menu.hapus');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('/form-tambah', [CartController::class, 'formTambah'])->name('cart.formTambah');
+Route::get('/form-tambah-cart', [CartController::class, 'formTambah'])->name('cart.formTambah');
 Route::post('/cart/tambah', [CartController::class, 'prosesTambah'])->name('cart.prosesTambah');
 Route::get('/cart/{id}/ubah', [CartController::class, 'formUbah'])->name('cart.formUbah');
 Route::post('/cart/ubah/{id}', [CartController::class, 'prosesUbah'])->name('cart.prosesUbah');
@@ -74,7 +74,12 @@ Route::post('/forgot-password', [PasswordController::class, 'sendResetLinkEmail'
 Route::get('/reset-password/{token}', [PasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [PasswordController::class, 'reset'])->name('password.update');
 
-
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
+Route::get('/galeri/create', [GaleriController::class, 'formTambahGaleri'])->name('galeri.formTambah');
+Route::post('/galeri/store', [GaleriController::class, 'prosesTambahGaleri'])->name('galeri.prosesTambah');
+Route::get('/galeri/edit/{id}', [GaleriController::class, 'ubahGaleri'])->name('galeri.formUbah');
+Route::put('/galeri/update/{id}', [GaleriController::class, 'prosesUbahGaleri'])->name('galeri.prosesUbah');
+Route::delete('/galeri/delete/{id}', [GaleriController::class, 'hapus'])->name('galeri.hapus');
 
 
 
