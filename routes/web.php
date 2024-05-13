@@ -56,7 +56,7 @@ Route::put('/contact/update/{id}', [ContactController::class, 'update'])->name('
 Route::delete('/contact/{id}', [ContactController::class, 'hapus'])->name('contact.hapus');
 
 Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
-Route::get('/form-tambah', [MenuController::class, 'formTambah'])->name('menu.formTambah');
+Route::get('/menu/form-tambah', [MenuController::class, 'formTambah'])->name('menu.formTambah');
 Route::post('/menu/tambah', [MenuController::class, 'prosesTambah'])->name('menu.prosesTambah');
 Route::get('/menu/{id}/ubah', [MenuController::class, 'formUbah'])->name('menu.formUbah');
 Route::post('/menu/ubah/{id}', [MenuController::class, 'prosesUbah'])->name('menu.prosesUbah');
