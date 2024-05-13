@@ -29,11 +29,19 @@ class DatabaseSeeder extends Seeder
             [
                 ['name' => 'Admin', 'email' => 'admin@mail.com', 'password' => bcrypt('admin'), 'role' => 'admin'],
             ]
+        );        DB::table('admins')->insert(
+            [
+                ['name' => 'Admin', 'email' => 'nuel@gmail.com', 'password' => bcrypt('admin'), 'role' => 'admin'],
+            ]
         );
 
         DB::table('users')->insert(
             [
                 'name' => 'User 1', 'email' => 'user1@mail.com', 'password' => bcrypt('user1')
+            ]
+        );        DB::table('users')->insert(
+            [
+                'name' => 'User 2', 'email' => 'user2@mail.com', 'password' => bcrypt('user1')
             ]
         );
     }
