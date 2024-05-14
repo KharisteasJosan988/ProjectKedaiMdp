@@ -95,9 +95,10 @@ class MenuController extends Controller
         try {
             $menu = Menu::findOrFail($id);
             $menu->delete();
-            return response()->json(['message' => 'Menu berhasil dihapus'], 204);
+
+            return response()->json(['success' => 'Menu berhasil dihapus.'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Gagal menghapus menu: ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Terjadi kesalahan saat menghapus menu.'], 500);
         }
     }
 }

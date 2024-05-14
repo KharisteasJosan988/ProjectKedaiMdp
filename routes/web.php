@@ -60,7 +60,7 @@ Route::get('/menu/form-tambah', [MenuController::class, 'formTambah'])->name('me
 Route::post('/menu/tambah', [MenuController::class, 'prosesTambah'])->name('menu.prosesTambah');
 Route::get('/menu/{id}/ubah', [MenuController::class, 'formUbah'])->name('menu.formUbah');
 Route::post('/menu/ubah/{id}', [MenuController::class, 'prosesUbah'])->name('menu.prosesUbah');
-Route::delete('/menu/{id}', [MenuController::class, 'hapus'])->name('menu.hapus');
+Route::delete('/menu/hapus/{id}', [MenuController::class, 'hapus'])->name('menu.hapus');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/form-tambah-cart', [CartController::class, 'formTambah'])->name('cart.formTambah');

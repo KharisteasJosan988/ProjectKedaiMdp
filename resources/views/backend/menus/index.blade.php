@@ -97,7 +97,7 @@
 
                             <tbody>
                                 @foreach ($menus as $index => $menu)
-                                    <tr id="row_{{ $index }}">
+                                    <tr id="row_{{ $menu->id }}">
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $menu->jenis }}</td>
                                         <td>{{ $menu->nama }}</td>
