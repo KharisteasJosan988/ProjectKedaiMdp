@@ -11,6 +11,6 @@ class DashboardController extends Controller
     }
 
     public function user(){
-        return view('dashboard_user');
+        return view('frontend.landing.index');
     }
 }
