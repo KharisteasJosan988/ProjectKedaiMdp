@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    flex: 1;
+}
+
+header {
+    background-color: #8DBA94;
+    padding: 10px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+nav ul.center {
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li img {
+    display: block;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #224F34;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.dashboard {
+    padding: 20px;
+    text-align: center;
+    background-color: #DDDAA2;
+}
+
+h1 {
+    text-align: left;
+    color: #224F34;
+    margin-bottom: 100px;
+    margin-left: 50px;
+    font-size: xx-large;
+}
+
+h2 {
+    color: #224F34;
+}
+
+.menu-favorit {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin: 10px 0;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 40px;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+.card h2 {
+    margin: 10px 0;
+}
+
+.location, .galeri {
+    margin: 40px 0;
+}
+
+.location img {
+    width: 50%;
+    height: auto;
+    margin: 20px 0;
+}
+
+.galeri-images {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.galeri-images img {
+    width: 500px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: #8DBA94;
+    color: #224F34;
+    padding: 20px 0;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-content p {
+    font-weight: bold;
+    margin: 5px 10px;
+}

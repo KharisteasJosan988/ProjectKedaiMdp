@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, sans-serif;
+}
+
+body {
+    background-color: #e3e3a3;
+    color: #2d2d2d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #e3e3a3;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container img {
+    max-height: 200px;
+    width: auto;
+    margin-left: 50px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    font-size: 24px;
+    color: #2d2d2d;
+    background-color: #e3e3a3;
+    border: 1px solid #2d2d2d;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.nav-button:last-child {
+    margin-right: 230px;
+}
+
+.nav-button:hover {
+    background-color: #c0c077;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.text-container {
+    flex: 1;
+    min-width: 400px;
+}
+
+.text-container h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #224F34;
+}
+
+.text-container p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #2d2d2d;
+}
+
+#buyNowButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #224F34;
+    border: none;
+    cursor: pointer;
+    margin-top: 50px;
+}
+
+#buyNowButton:hover {
+    background-color: #4a4a4a;
+}
+
+.image-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+.image-container img {
+    max-width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}

@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\UserMenuController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -88,6 +89,9 @@ Route::delete('/galeri/delete/{id}', [GaleriController::class, 'hapus'])->name('
 Route::prefix('dashboard_user')->group(function () {
     Route::get('/', [UserDashboardController::class, 'index'])->name('frontend.dashboard_user.index');
 });
+
+Route::get('/menu', [UserMenuController::class, 'index'])->name('frontend.menu_user.index');
+
 
 
 

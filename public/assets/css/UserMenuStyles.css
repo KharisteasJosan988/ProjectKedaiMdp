@@ -1,0 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    flex: 1;
+}
+
+header {
+    background-color: #8DBA94;
+    padding: 10px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+nav .left {
+    flex: 1;
+}
+
+nav .center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+nav .center ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+nav .center ul li {
+    margin: 0 15px;
+}
+
+nav .center ul li a {
+    text-decoration: none;
+    color: #224F34;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+nav .right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav .right a {
+    text-decoration: none;
+    color: #224F34;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.dashboard {
+    padding: 20px;
+    text-align: center;
+    background-color: #DDDAA2;
+}
+
+h1 {
+    text-align: left;
+    color: #224F34;
+    margin-bottom: 50px;
+    font-size: xx-large;
+}
+
+.menu-favorit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #fff;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+.card h2 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #224F34;
+}
+
+.card p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #224F34;
+}
+
+.quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.quantity label {
+    margin-right: 10px;
+    color: #224F34;
+}
+
+.location {
+    margin-top: 40px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: #8DBA94;
+    color: #224F34;
+    padding: 20px 0;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-content p {
+    margin: 5px 10px;
+}
