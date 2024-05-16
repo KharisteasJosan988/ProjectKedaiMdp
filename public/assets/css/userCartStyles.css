@@ -19,6 +19,12 @@ header {
     padding: 10px 0;
 }
 
+h1 {
+    text-align: left;
+    color: #224F34;
+    margin-bottom: 50px;
+}
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -69,82 +75,57 @@ nav .right a {
     font-size: 18px;
 }
 
-.dashboard {
+.cart-container {
     padding: 20px;
     text-align: center;
     background-color: #DDDAA2;
 }
 
-h1 {
-    text-align: left;
-    color: #224F34;
-    margin-bottom: 50px;
-    font-size: xx-large;
+.cart-table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
 }
 
-.menu-favorit {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.card {
+.cart-table th, .cart-table td {
     border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    width: 200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    background-color: #fff;
+    padding: 8px;
 }
 
-.card img {
-    width: 100%;
-    height: auto;
-}
-
-.card h2 {
-    margin: 10px 0;
-    font-size: 18px;
-    color: #224F34;
-}
-
-.card p {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #224F34;
-}
-
-.quantity {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.total-section {
-    margin-top: 40px;
-    text-align: center;
-    border: 3px solid #8DBA94;
-    border-radius: 12px;
-    width: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f0f0f0; /* Background color */
-    color: #224F34; /* Text color */
-}
-
-.quantity label {
-    margin-right: 10px;
-    color: #224F34;
-}
-
-.location {
-    margin-top: 40px;
+.cart-table th {
     background-color: #8DBA94;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.cart-table td {
+    background-color: #f2f2f2;
+}
+
+.cart-total {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+.btn-container {
+    margin-top: 20px;
+}
+
+.btn-container button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.btn-pay {
+    background-color: #224F34;
+    color: white;
+}
+
+.payment-method {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 footer {

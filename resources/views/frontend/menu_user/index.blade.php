@@ -18,7 +18,7 @@
                 <ul>
                     <li><a href="{{ route('frontend.dashboard_user.index') }}">Dashboard</a></li>
                     <li><a href="{{ route('frontend.menu_user.index') }}">Menu</a></li>
-                    <li><a href="#">Keranjang</a></li>
+                    <li><a href="{{route('frontend.cart_user.index')}}">Keranjang</a></li>
                 </ul>
             </div>
             <div class="right">
@@ -45,7 +45,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="location" id="total-section" style="display: none;">
+            <div class="total-section" id="total-section" style="display: none;" onclick="redirectToCart()">
                 <h2>Total</h2>
                 <div id="total-items"></div>
                 <p id="total-price"></p>
@@ -98,6 +98,10 @@
                 input.addEventListener('input', updateTotal);
             });
         });
+
+        function redirectToCart() {
+            window.location.href = "{{route('frontend.cart_user.index')}}";
+        }
     </script>
 </body>
 

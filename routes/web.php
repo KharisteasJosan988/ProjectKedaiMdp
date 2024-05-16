@@ -9,6 +9,7 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\UserCartController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserMenuController;
 use Illuminate\Support\Facades\Route;
@@ -91,6 +92,8 @@ Route::prefix('dashboard_user')->group(function () {
 });
 
 Route::get('/menu', [UserMenuController::class, 'index'])->name('frontend.menu_user.index');
+Route::get('/keranjang', [UserCartController::class, 'index'])->name('frontend.cart_user.index');
+Route::post('/checkout', [UserCartController::class, 'checkout'])->name('checkout');
 
 
 
