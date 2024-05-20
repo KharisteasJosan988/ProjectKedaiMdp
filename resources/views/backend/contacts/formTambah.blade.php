@@ -60,6 +60,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
                         Galeri
                     </a>
+                    <a class="nav-link" href="{{ route('contact.index') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
+                        Contact
+                    </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
@@ -106,9 +110,6 @@
                             <br>Daerah Istimewa Yogyakarta 55571
                         </div>
                         <div class="col-6 d-flex align-items-center justify-content-end">
-                        </div>
-                        <div class="ml-5">
-                            <a href="{{ route('contact.index') }}" class="ml-3">Contact</a>
                         </div>
                     </div>
                 </div>

@@ -60,6 +60,10 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
                             Galeri
                         </a>
+                        <a class="nav-link" href="{{ route('contact.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
+                            Contact
+                        </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -83,46 +87,46 @@
                     </form>
 
                     <div class="mt-4">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Jenis Menu</th>
-                                    <th>Nama Menu</th>
-                                    <th>Harga</th>
-                                    <th>Gambar</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach ($menus as $index => $menu)
-                                    <tr id="row_{{ $menu->id }}">
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $menu->jenis }}</td>
-                                        <td>{{ $menu->nama }}</td>
-                                        <td>Rp {{ number_format($menu->harga, 0) }}</td>
-                                        <td><img id="preview_{{ $index }}" src="{{ asset($menu->gambar) }}"
-                                                alt="{{ $menu->nama }}" width="100"></td>
-                                        <td>
-                                            <a href="{{ route('menu.formUbah', ['id' => $menu->id]) }}"
-                                                class="btn btn-sm btn-warning">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('menu.hapus', $menu->id) }}" method="POST"
-                                                style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-sm btn-danger"
-                                                    onclick="confirmDelete({{ $menu->id }})">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Jenis Menu</th>
+                                        <th>Nama Menu</th>
+                                        <th>Harga</th>
+                                        <th>Gambar</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($menus as $index => $menu)
+                                        <tr id="row_{{ $menu->id }}">
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $menu->jenis }}</td>
+                                            <td>{{ $menu->nama }}</td>
+                                            <td>Rp {{ number_format($menu->harga, 0) }}</td>
+                                            <td><img id="preview_{{ $index }}" src="{{ asset($menu->gambar) }}"
+                                                    alt="{{ $menu->nama }}" width="100"></td>
+                                            <td>
+                                                <a href="{{ route('menu.formUbah', ['id' => $menu->id]) }}"
+                                                    class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('menu.hapus', $menu->id) }}" method="POST"
+                                                    style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-sm btn-danger"
+                                                        onclick="confirmDelete({{ $menu->id }})">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                     </div>
 
                 </div>
@@ -142,9 +146,6 @@
                                 <br>Daerah Istimewa Yogyakarta 55571
                             </div>
                             <div class="col-6 d-flex align-items-center justify-content-end">
-                            </div>
-                            <div class="ml-5">
-                                <a href="{{ route('contact.index') }}" class="ml-3">Contact</a>
                             </div>
                         </div>
                     </div>

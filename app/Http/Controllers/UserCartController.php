@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
+
 
 class UserCartController extends Controller
 {
@@ -19,6 +21,20 @@ class UserCartController extends Controller
     {
         // Proses checkout sesuai metode pembayaran yang dipilih
         $paymentMethod = $request->input('payment_method');
+
+        // Simpan pesanan ke dalam database
+        $cartItems = session()->get('cart', []);
+        foreach ($cartItems as $item) {
+            Pesanan::create([
+                'menu_id' => $item['id'], // Sesuaikan dengan kolom yang sesuai di dalam tabel pesanan
+                'quantity' => $item['quantity'],
+                // tambahkan kolom lain yang diperlukan
+            ]);
+        }
+
+        // Bersihkan keranjang setelah checkout
+        session()->forget('cart');
+
         // Logika pembayaran dan penyimpanan order
         return redirect()->route('frontend.dashboard_user.index')->with('success', 'Pembayaran berhasil');
     }

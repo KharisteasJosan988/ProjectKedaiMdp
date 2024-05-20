@@ -16,7 +16,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{route('admin.dashboard.index')}}">
+        <a class="navbar-brand ps-3" href="{{ route('admin.dashboard.index') }}">
             <img src="{{ asset('assets/img/logo-kedai-mdp.svg') }}" alt="Kedai Mdp Logo">Kedai Mdp
         </a>
         <!-- Sidebar Toggle-->
@@ -56,9 +56,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
                         </a>
-                        <a class="nav-link" href="{{route('galeri.index')}}">
+                        <a class="nav-link" href="{{ route('galeri.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
                             Galeri
+                        </a>
+                        <a class="nav-link" href="{{ route('contact.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
+                            Contact
                         </a>
                     </div>
                 </div>

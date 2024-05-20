@@ -32,7 +32,7 @@
             <table class="cart-table">
                 <thead>
                     <tr>
-                        <th>Pesanan</th>
+                        <th>Nama Menu</th>
                         <th>Jumlah</th>
                         <th>Harga</th>
                     </tr>
@@ -40,9 +40,9 @@
                 <tbody>
                     @foreach ($cartItems as $item)
                         <tr>
-                            <td>{{ $item['name'] }}</td>
-                            <td>{{ $item['quantity'] }}</td>
-                            <td>Rp {{ number_format($item['price'], 0) }}</td>
+                            <td>{{ $item['nama_menu'] }}</td>
+                            <td>{{ $item['jumlah'] }}</td>
+                            <td>Rp {{ number_format($item['harga'], 0) }}</td>
                         </tr>
                     @endforeach
                     <tr>
@@ -61,6 +61,8 @@
                             <option value="CASH">CASH</option>
                         </select>
                     </div>
+                    <div id="total-price">Total Harga: Rp {{ number_format($totalPrice, 0) }}</div>
+                    <!-- Menampilkan total harga -->
                     <a href="{{ route('frontend.menu_user.index') }}" class="btn btn-secondary">Kembali</a>
                     <button type="submit" class="btn-pay">Bayar</button>
                 </form>

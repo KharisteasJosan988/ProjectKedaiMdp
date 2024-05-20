@@ -18,7 +18,7 @@
                 <ul>
                     <li><a href="{{ route('frontend.dashboard_user.index') }}">Dashboard</a></li>
                     <li><a href="{{ route('frontend.menu_user.index') }}">Menu</a></li>
-                    <li><a href="{{route('frontend.cart_user.index')}}">Keranjang</a></li>
+                    <li><a href="{{ route('frontend.cart_user.index') }}">Keranjang</a></li>
                 </ul>
             </div>
             <div class="right">
@@ -49,6 +49,7 @@
                 <h2>Total</h2>
                 <div id="total-items"></div>
                 <p id="total-price"></p>
+                <button class="btn-lihat-keranjang">Lihat Keranjang</button>
             </div>
         </section>
     </main>
@@ -67,30 +68,46 @@
             const totalSection = document.getElementById('total-section');
             const totalItems = document.getElementById('total-items');
             const totalPrice = document.getElementById('total-price');
+            let totalOrderPrice = 0; // Variable to store the total order price
+            let selectedMenus = []; // Variable to store selected menu items
 
             const updateTotal = () => {
                 let items = [];
                 let totalQuantity = 0;
-                let totalPriceValue = 0;
+                totalOrderPrice = 0;
+                selectedMenus = []; // Reset the selected menus array
 
                 quantityInputs.forEach(input => {
                     const quantity = parseInt(input.value);
+                    const id = input.getAttribute('data-id');
                     const name = input.getAttribute('data-name');
                     const price = parseInt(input.getAttribute('data-price'));
 
                     if (quantity > 0) {
                         items.push(`${name}: ${quantity}`);
                         totalQuantity += quantity;
-                        totalPriceValue += quantity * price;
+                        totalOrderPrice += quantity * price;
+
+                        // Add the selected menu item to the selectedMenus array
+                        selectedMenus.push({
+                            id: id,
+                            name: name,
+                            price: price,
+                            quantity: quantity
+                        });
                     }
                 });
 
                 if (totalQuantity > 0) {
                     totalItems.innerHTML = `${totalQuantity} ITEM<br>` + items.join('<br>');
-                    totalPrice.innerHTML = `Rp ${totalPriceValue.toLocaleString()}`;
+                    totalPrice.innerHTML = `Rp ${totalOrderPrice.toLocaleString()}`;
                     totalSection.style.display = 'block';
+
+                    // Store the selected menus in localStorage
+                    localStorage.setItem('selectedMenus', JSON.stringify(selectedMenus));
                 } else {
                     totalSection.style.display = 'none';
+                    localStorage.removeItem('selectedMenus'); // Clear localStorage if no items are selected
                 }
             };
 
@@ -100,7 +117,8 @@
         });
 
         function redirectToCart() {
-            window.location.href = "{{route('frontend.cart_user.index')}}";
+            // Redirect to the cart page
+            window.location.href = "{{ route('frontend.cart_user.index') }}";
         }
     </script>
 </body>

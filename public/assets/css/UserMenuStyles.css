@@ -125,13 +125,15 @@ h1 {
 
 .total-section {
     margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
-    border: 3px solid #8DBA94;
+    border: 1px solid #000000;
     border-radius: 12px;
-    width: auto;
+    width: 250px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f0f0f0; /* Background color */
-    color: #224F34; /* Text color */
+    background-color: #8DBA94; /* Background color */
+    color: #000000; /* Text color */
 }
 
 .quantity label {
@@ -164,4 +166,21 @@ footer {
 
 .footer-content p {
     margin: 5px 10px;
+}
+
+
+/* Style untuk tombol "Lihat Keranjang" */
+.btn-lihat-keranjang {
+    background-color: #58b05b; /* Warna latar belakang */
+    color: white; /* Warna teks */
+    padding: 10px 20px; /* Padding */
+    border: none; /* Tanpa border */
+    border-radius: 5px; /* Sudut melengkung */
+    cursor: pointer; /* Pointer saat dihover */
+    font-size: 16px; /* Ukuran font */
+}
+
+/* Style untuk tombol ketika dihover */
+.btn-lihat-keranjang:hover {
+    background-color: #45a049; /* Warna latar belakang saat dihover */
 }

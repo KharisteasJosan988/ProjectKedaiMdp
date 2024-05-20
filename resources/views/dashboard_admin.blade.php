@@ -17,8 +17,8 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{route('admin.dashboard.index')}}">
-            <img src="{{ asset('assets/img/logo-kedai-mdp.svg') }}" alt="Kedai Mdp Logo">Kedai Mdp
+        <a class="navbar-brand ps-3" href="{{ route('admin.dashboard.index') }}">
+            <img src="{{ asset('assets/img/logo-kedai-mdp.svg') }}" alt="Kedai Mdp Logo"> Kedai Mdp
         </a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-lg order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
@@ -49,7 +49,7 @@
                         </a>
 
                         <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link" href="{{url('/menu')}}">
+                        <a class="nav-link" href="{{ url('/menu/index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-cutlery"></i></div>
                             Menu
                         </a>
@@ -57,9 +57,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
                         </a>
-                        <a class="nav-link" href="{{route('galeri.index')}}">
+                        <a class="nav-link" href="{{ route('galeri.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
                             Galeri
+                        </a>
+                        <a class="nav-link" href="{{ route('contact.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
+                            Contact
                         </a>
                     </div>
                 </div>
@@ -77,8 +81,72 @@
                         <li class="breadcrumb-item active">Admin</li>
                     </ol>
 
+                    <!-- Contacts Table -->
+                    <h2 style="text-align: center">Contacts</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Konten</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($contacts as $index => $contact)
+                                <tr id="row_{{ $contact->id }}">
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{!! $contact->konten !!}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
+                    <!-- Galeri Table -->
+                    <h2 class="mt-5 mb-4" style="text-align: center">Galeri</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Gambar</th>
+                                <th>Deskripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($galeri as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td><img src="{{ asset($item->gambar) }}" alt="{{ $item->deskripsi }}"
+                                            width="100"></td>
+                                    <td>{{ $item->deskripsi }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
+                    <!-- Menu Table -->
+                    <h2 class="mt-5 mb-4" style="text-align: center">Menu</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Jenis Menu</th>
+                                <th>Nama Menu</th>
+                                <th>Harga</th>
+                                <th>Gambar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($menus as $index => $menu)
+                                <tr id="row_{{ $menu->id }}">
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $menu->jenis }}</td>
+                                    <td>{{ $menu->nama }}</td>
+                                    <td>Rp {{ number_format($menu->harga, 0) }}</td>
+                                    <td><img id="preview_{{ $index }}" src="{{ asset($menu->gambar) }}"
+                                            alt="{{ $menu->nama }}" width="100"></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </main>
             <footer class="py-4 bg-success mt-auto">
@@ -97,9 +165,6 @@
                             </div>
                             <div class="col-6 d-flex align-items-center justify-content-end">
                             </div>
-                            <div class="ml-5">
-                                <a href="{{ route('contact.index') }}" class="ml-3">Contact</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -113,6 +178,14 @@
         crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/datatables-simple-demo.js') }}"></script>
 
+    <script>
+        function confirmDelete(id) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                document.getElementById('row_' + id).remove();
+                // Submit the form here if necessary
+            }
+        }
+    </script>
 </body>
 
 </html>
