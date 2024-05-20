@@ -29,9 +29,18 @@ class MenuController extends Controller
         // Validasi data
         $request->validate([
             'jenis' => 'required',
-            'nama' => 'required',
-            'harga' => 'required',
+            'nama' => [
+                'required',
+                'regex:/^[a-zA-Z\s]+$/',
+            ],
+            'harga' => [
+                'required',
+                'regex:/^[0-9]+$/', // Hanya angka
+            ],
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Batasan ukuran gambar: 2MB
+        ], [
+            'nama.regex' => 'Nama menu hanya boleh berisi huruf dan spasi.',
+            'harga.regex' => 'Harga menu hanya boleh berisi angka.',
         ]);
 
         $gambar = $request->file('gambar');
@@ -64,9 +73,18 @@ class MenuController extends Controller
         // Validasi data
         $request->validate([
             'jenis' => 'required',
-            'nama' => 'required',
-            'harga' => 'required',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama' => [
+                'required',
+                'regex:/^[a-zA-Z\s]+$/', //hanya huruf
+            ],
+            'harga' => [
+                'required',
+                'regex:/^[0-9]+$/', // Hanya angka
+            ],
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Batasan ukuran gambar: 2MB
+        ], [
+            'nama.regex' => 'Nama menu hanya boleh terdiri dari huruf dan spasi.',
+            'harga.regex' => 'Harga menu hanya boleh terdiri dari angka.',
         ]);
 
         // Menemukan menu yang akan diubah

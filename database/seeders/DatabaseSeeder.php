@@ -16,10 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
@@ -27,9 +23,10 @@ class DatabaseSeeder extends Seeder
 
         DB::table('admins')->insert(
             [
-                ['name' => 'Admin', 'email' => 'admin@mail.com', 'password' => bcrypt('admin'), 'role' => 'admin'],
+                ['name' => 'Admin', 'email' => 'admin@mail.com', 'password' => bcrypt('admin@mail.com'), 'role' => 'admin'],
             ]
-        );        DB::table('admins')->insert(
+        );
+        DB::table('admins')->insert(
             [
                 ['name' => 'Admin', 'email' => 'nuel@gmail.com', 'password' => bcrypt('admin'), 'role' => 'admin'],
             ]
@@ -39,7 +36,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'User 1', 'email' => 'user1@mail.com', 'password' => bcrypt('user1')
             ]
-        );        DB::table('users')->insert(
+        );
+        DB::table('users')->insert(
             [
                 'name' => 'User 2', 'email' => 'user2@mail.com', 'password' => bcrypt('user1')
             ]

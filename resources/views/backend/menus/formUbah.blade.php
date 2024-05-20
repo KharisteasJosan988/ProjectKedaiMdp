@@ -17,7 +17,7 @@ ini form ubah
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{route('admin.dashboard.index')}}">
+        <a class="navbar-brand ps-3" href="{{ route('admin.dashboard.index') }}">
             <img src="{{ asset('assets/img/logo-kedai-mdp.svg') }}" alt="Kedai Mdp Logo">Kedai Mdp
         </a>
         <!-- Sidebar Toggle-->
@@ -57,7 +57,7 @@ ini form ubah
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
                         </a>
-                        <a class="nav-link" href="{{route('galeri.index')}}">
+                        <a class="nav-link" href="{{ route('galeri.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
                             Galeri
                         </a>
@@ -80,7 +80,8 @@ ini form ubah
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Admin</li>
                     </ol>
-                    <form action="{{ route('menu.prosesUbah', ['id' => $menu->id]) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('menu.prosesUbah', ['id' => $menu->id]) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="mb-3">
@@ -96,11 +97,17 @@ ini form ubah
                             <label for="nama" class="form-label">Nama Menu</label>
                             <input type="text" class="form-control" id="nama" name="nama"
                                 value="{{ $menu->nama }}">
+                            @error('nama')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga</label>
                             <input type="text" class="form-control" id="harga" name="harga"
-                                value="{{$menu->harga}}">
+                                value="{{ $menu->harga }}">
+                            @error('harga')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="gambar" class="form-label">Gambar</label>

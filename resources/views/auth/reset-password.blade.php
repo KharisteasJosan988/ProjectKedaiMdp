@@ -33,7 +33,7 @@
                                             <input type="email" name="email" id="email" class="form-control"
                                                 placeholder="Email" value="{{ $email }}" required autofocus>
                                             @error('email')
-                                                <span>{{ $message }}</span>
+                                                <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
 
@@ -42,7 +42,7 @@
                                             <input type="password" name="password" class="form-control" id="password"
                                                 placeholder="New Password" required>
                                             @error('password')
-                                                <span>{{ $message }}</span>
+                                                <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
 
@@ -50,6 +50,9 @@
                                             <label for="password_confirmation">Confirm Password :</label>
                                             <input type="password" name="password_confirmation" class="form-control"
                                                 id="password_confirmation" placeholder="Confirm Password" required>
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div>

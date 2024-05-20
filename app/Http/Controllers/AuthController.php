@@ -19,9 +19,18 @@ class AuthController extends Controller
 
     public function verify(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                'regex:/^[a-zA-Z]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            ],
+            'password' => 'required|min:8',
+        ], [
+            'email.required' => 'Email diperlukan.',
+            'email.regex' => 'Email harus dimulai dengan sebuah huruf dan terdiri dari format email yang benar.',
+            'password.required' => 'Password diperlukan.',
+            'password.min' => 'Password harus terdiri dari setidaknya 8 character.',
         ]);
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'admin'])) {
@@ -29,7 +38,7 @@ class AuthController extends Controller
         } else if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->intended('/user/dashboard');
         } else {
-            return redirect('/')->with('msg', 'Wrong email & password ');
+            return redirect('/')->withErrors(['login' => 'Wrong email & password'])->withInput();
         }
     }
 

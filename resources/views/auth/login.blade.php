@@ -24,17 +24,38 @@
                                     <h3 class="text-center font-weight-light my-4">Login Kedai Mdp</h3>
                                 </div>
                                 <div class="card-body">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('auth.verify') }}" method="POST">
                                         @csrf
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" type="email" name="email"
-                                                placeholder="name@example.com" />
+                                            <input class="form-control @error('email') is-invalid @enderror"
+                                                id="inputEmail" type="email" name="email"
+                                                placeholder="name@example.com" value="{{ old('email') }}" />
                                             <label for="inputEmail">Alamat Email</label>
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputPassword" type="password"
-                                                name="password" placeholder="Password" />
+                                            <input class="form-control @error('password') is-invalid @enderror"
+                                                id="inputPassword" type="password" name="password"
+                                                placeholder="Password" />
                                             <label for="inputPassword">Password</label>
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" href="{{ url('/forgot-password') }}">Lupa Password?</a>

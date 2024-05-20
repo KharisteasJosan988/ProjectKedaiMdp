@@ -25,22 +25,25 @@
                                 </div>
                                 <div class="card-body">
                                     @if (session('status'))
-                                        <div>{{ session('status') }}</div>
+                                        <div class="alert alert-success">
+                                            {{ session('status') }}
+                                        </div>
                                     @endif
 
                                     <form action="{{ url('/forgot-password') }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="email">Email :</label>
-                                            <input type="email" name="email" id="email" placeholder="Email" class="form-control"
-                                                value="{{ old('email') }}" required autofocus>
+                                            <input type="email" name="email" id="email" placeholder="Email"
+                                                class="form-control" value="{{ old('email') }}" required autofocus>
                                             @error('email')
-                                                <span>{{ $message }}</span>
+                                                <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
 
                                         <div class="mb-3 text-center">
-                                            <button type="submit" class="btn btn-primary w-100 mt-3">Send Password Reset Link</button>
+                                            <button type="submit" class="btn btn-primary w-100 mt-3">Send Password
+                                                Reset Link</button>
                                         </div>
                                     </form>
                                 </div>

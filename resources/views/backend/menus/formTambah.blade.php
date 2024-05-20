@@ -16,7 +16,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{route('admin.dashboard.index')}}">
+        <a class="navbar-brand ps-3" href="{{ route('admin.dashboard.index') }}">
             <img src="{{ asset('assets/img/logo-kedai-mdp.svg') }}" alt="Kedai Mdp Logo">Kedai Mdp
         </a>
         <!-- Sidebar Toggle-->
@@ -56,7 +56,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
                         </a>
-                        <a class="nav-link" href="{{route('galeri.index')}}">
+                        <a class="nav-link" href="{{ route('galeri.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
                             Galeri
                         </a>
@@ -79,8 +79,7 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Admin</li>
                     </ol>
-                    <form action="{{ route('menu.prosesTambah') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('menu.prosesTambah') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="jenis" class="form-label">Jenis Menu</label>
@@ -91,15 +90,24 @@
                         </div>
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama Menu</label>
-                            <input type="text" class="form-control" id="nama" name="nama">
+                            <input type="text" class="form-control" id="nama" name="nama"
+                                value="{{ old('nama') }}">
+                            @error('nama')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga Menu</label>
-                            <input type="text" class="form-control" id="harga" name="harga">
+                            <input type="text" class="form-control" id="harga" name="harga"
+                                value="{{ old('harga') }}">
+                            @error('harga')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="gambar" class="form-label">Gambar Menu</label>
-                            <input type="file" class="form-control" id="gambarInput" name="gambar" onchange="tampilkanPreview(this, 'preview')">
+                            <input type="file" class="form-control" id="gambarInput" name="gambar"
+                                onchange="tampilkanPreview(this, 'preview')">
                             <img id="preview" src="#" alt="Preview" width="150">
                         </div>
                         <button type="submit" class="btn btn-primary">Tambah</button>

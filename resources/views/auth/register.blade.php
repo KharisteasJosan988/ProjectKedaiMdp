@@ -30,28 +30,43 @@
                                             {{ Session::get('success') }}
                                         </div>
                                     @endif
+
+                                    <!-- Menampilkan pesan kesalahan validasi -->
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger mt-3">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('register') }}" method="POST">
                                         @csrf
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputName" type="text" name="name"
-                                                placeholder="Nama Pengguna" required />
-                                            <label for="inputName">Nama Pengguna</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
                                             <input class="form-control" id="inputEmail" type="email" name="email"
-                                                placeholder="name@example.com" required />
+                                                placeholder="name@example.com" value="{{ old('email') }}" required />
                                             <label for="inputEmail">Alamat Email</label>
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="inputPassword" type="password"
                                                 name="password" placeholder="Password" required />
                                             <label for="inputPassword">Password</label>
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="inputPasswordConfirmation" type="password"
                                                 name="password_confirmation" placeholder="Konfirmasi Password"
                                                 required />
                                             <label for="inputPasswordConfirmation">Konfirmasi Password</label>
+                                            @error('password_confirmation')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <button type="submit" class="btn btn-primary w-100">Daftar</button>

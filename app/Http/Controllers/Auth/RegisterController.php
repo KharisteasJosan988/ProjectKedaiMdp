@@ -30,9 +30,21 @@ class RegisterController extends Controller
     {
         // Validasi input
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'email' => [
+                'required',
+                'email',
+                'regex:/^[a-zA-Z]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+                'unique:users,email'
+            ],
+            'password' => 'required|min:8|confirmed',
+        ], [
+            'email.required' => 'Alamat Email wajib diisi.',
+            'email.email' => 'Alamat Email harus berupa email yang valid.',
+            'email.regex' => 'Alamat Email harus dimulai dengan huruf dan hanya mengandung karakter yang valid.',
+            'email.unique' => 'Alamat Email sudah terdaftar.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Password harus memiliki setidaknya 8 karakter.',
+            'password.confirmed' => 'Konfirmasi Password tidak cocok.',
         ]);
 
         // Buat pengguna baru
