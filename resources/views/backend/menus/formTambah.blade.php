@@ -109,6 +109,9 @@
                             <input type="file" class="form-control" id="gambarInput" name="gambar"
                                 onchange="tampilkanPreview(this, 'preview')">
                             <img id="preview" src="#" alt="Preview" width="150">
+                            @error('gambar')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Tambah</button>
                         <a href="{{ route('menu.index') }}" class="btn btn-secondary">Kembali</a>

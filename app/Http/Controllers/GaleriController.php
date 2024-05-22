@@ -15,7 +15,6 @@ class GaleriController extends Controller
 
     public function formTambahGaleri()
     {
-        // Tampilkan form untuk menambah galeri
         return view('backend.galeris.formTambah');
     }
 
@@ -26,18 +25,15 @@ class GaleriController extends Controller
                 'required',
                 'regex:/^[a-zA-Z\s]+$/',
             ],
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'deskripsi.required' => 'Deskripsi tidak boleh kosong',
             'deskripsi.regex' => 'Deskripsi hanya bisa diisi dengan huruf',
-            'gambar.required' => 'Gambar tidak boleh kosong',
         ]);
 
-        // Proses penyimpanan data galeri baru
         $galeri = new Galeri();
         $galeri->deskripsi = $request->deskripsi;
 
-        // Upload gambar
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
             $nama_gambar = time() . '.' . $gambar->getClientOriginalExtension();
@@ -52,25 +48,26 @@ class GaleriController extends Controller
 
     public function ubahGaleri($id)
     {
-        // Tampilkan form untuk mengedit galeri dengan id tertentu
         $galeri = Galeri::findOrFail($id);
         return view('backend.galeris.formUbah', compact('galeri'));
     }
 
     public function prosesUbahGaleri(Request $request, $id)
     {
-        // Update data galeri dengan id tertentu
-        // Validasi data yang dikirimkan dari form ubah galeri
         $request->validate([
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
+            'deskripsi' => [
+                'required',
+                'regex:/^[a-zA-Z\s]+$/',
+            ],
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong',
+            'deskripsi.regex' => 'Deskripsi hanya bisa diisi dengan huruf',
         ]);
 
-        // Proses pembaruan data galeri
         $galeri = Galeri::findOrFail($id);
         $galeri->deskripsi = $request->deskripsi;
 
-        // Upload gambar jika ada perubahan
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
             $nama_gambar = time() . '.' . $gambar->getClientOriginalExtension();
@@ -90,7 +87,7 @@ class GaleriController extends Controller
             $galeri->delete();
             return response()->json(['message' => 'Galeri berhasil dihapus'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Gagal menghapus galeri: ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Gagal menghapus galeri'], 500);
         }
     }
 }

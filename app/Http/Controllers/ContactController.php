@@ -23,6 +23,8 @@ class ContactController extends Controller
         $request->validate([
             'editor' => [
                 'required',
+            ], [
+                'editor.required' => 'Editor wajib diisi!'
             ]
         ]);
 
@@ -48,6 +50,8 @@ class ContactController extends Controller
         $request->validate([
             'konten' => [
                 'required',
+            ], [
+                'konten.required' => 'Editor wajib diisi!'
             ]
         ]);
 

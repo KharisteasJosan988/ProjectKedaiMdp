@@ -56,7 +56,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
                         </a>
-                        <a class="nav-link" href="{{route('galeri.index')}}">
+                        <a class="nav-link" href="{{ route('galeri.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
                             Galeri
                         </a>
@@ -74,6 +74,12 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
+                @if (Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
+
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Menu</h1>
                     <ol class="breadcrumb mb-4">
@@ -87,46 +93,46 @@
                     </form>
 
                     <div class="mt-4">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Jenis Menu</th>
-                                        <th>Nama Menu</th>
-                                        <th>Harga</th>
-                                        <th>Gambar</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Jenis Menu</th>
+                                    <th>Nama Menu</th>
+                                    <th>Harga</th>
+                                    <th>Gambar</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
-                                    @foreach ($menus as $index => $menu)
-                                        <tr id="row_{{ $menu->id }}">
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $menu->jenis }}</td>
-                                            <td>{{ $menu->nama }}</td>
-                                            <td>Rp {{ number_format($menu->harga, 0) }}</td>
-                                            <td><img id="preview_{{ $index }}" src="{{ asset($menu->gambar) }}"
-                                                    alt="{{ $menu->nama }}" width="100"></td>
-                                            <td>
-                                                <a href="{{ route('menu.formUbah', ['id' => $menu->id]) }}"
-                                                    class="btn btn-sm btn-warning">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <form action="{{ route('menu.hapus', $menu->id) }}" method="POST"
-                                                    style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-sm btn-danger"
-                                                        onclick="confirmDelete({{ $menu->id }})">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            <tbody>
+                                @foreach ($menus as $index => $menu)
+                                    <tr id="row_{{ $menu->id }}">
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $menu->jenis }}</td>
+                                        <td>{{ $menu->nama }}</td>
+                                        <td>Rp {{ number_format($menu->harga, 0) }}</td>
+                                        <td><img id="preview_{{ $index }}" src="{{ asset($menu->gambar) }}"
+                                                alt="{{ $menu->nama }}" width="100"></td>
+                                        <td>
+                                            <a href="{{ route('menu.formUbah', ['id' => $menu->id]) }}"
+                                                class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('menu.hapus', $menu->id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-sm btn-danger"
+                                                    onclick="confirmDelete({{ $menu->id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
 
                 </div>
@@ -198,12 +204,14 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
             }).then(response => {
-                if (response.ok) {
+                return response.json(); // Parse respons JSON
+            }).then(data => {
+                if (data.success) {
                     document.getElementById('row_' + id).remove();
-                    Swal.fire('Sukses!', 'Menu berhasil dihapus.', 'success');
+                    Swal.fire('Sukses!', data.message, 'success');
                 } else {
-                    console.error('Gagal menghapus kontak');
-                    Swal.fire('Gagal!', 'Tidak dapat menghapus menu.', 'error');
+                    console.error('Gagal menghapus menu');
+                    Swal.fire('Gagal!', data.message, 'error');
                 }
             }).catch(error => {
                 console.error('Terjadi kesalahan:', error);

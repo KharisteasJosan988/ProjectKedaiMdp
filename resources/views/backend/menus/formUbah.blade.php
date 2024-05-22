@@ -49,7 +49,7 @@ ini form ubah
                         </a>
 
                         <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="{{ route('menu.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-cutlery"></i></div>
                             Menu
                         </a>
@@ -155,35 +155,35 @@ ini form ubah
     <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
     {{-- <script>
-        ClassicEditor
-            .create(document.querySelector('#konten'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+    ClassicEditor
+        .create(document.querySelector('#konten'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
-        function tampilkanPreview(input, idPreview) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#' + idPreview).attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
+    function tampilkanPreview(input, idPreview) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#' + idPreview).attr('src', e.target.result);
             }
+            reader.readAsDataURL(input.files[0]);
         }
+    }
 
-        $(document).ready(function() {
-            $('#gambar').change(function() {
-                tampilkanPreview(this, 'preview');
-            });
+    $(document).ready(function() {
+        $('#gambar').change(function() {
+            tampilkanPreview(this, 'preview');
         });
+    });
 
-        $(document).ready(function() {
-            tampilkanPreview($('#gambar')[0], 'preview');
-        });
-    </script> --}}
+    $(document).ready(function() {
+        tampilkanPreview($('#gambar')[0], 'preview');
+    });
+</script> --}}
 
     <script>
         ClassicEditor

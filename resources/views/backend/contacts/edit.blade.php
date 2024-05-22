@@ -48,7 +48,7 @@
                     </a>
 
                     <div class="sb-sidenav-menu-heading">Interface</div>
-                    <a class="nav-link" href="charts.html">
+                    <a class="nav-link" href="{{route('menu.index')}}">
                         <div class="sb-nav-link-icon"><i class="fas fa-cutlery"></i></div>
                         Menu
                     </a>

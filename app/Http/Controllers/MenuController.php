@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
@@ -47,23 +48,36 @@ class MenuController extends Controller
         $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
         $gambar->move(public_path('menu_images'), $nama_gambar);
 
-        // Menyimpan gambar
-        $gambarPath = 'menu_images/' . $nama_gambar;
+        try {
+            // Menyimpan gambar
+            $gambarPath = 'menu_images/' . $nama_gambar;
 
-        // Membuat record baru dalam database
-        Menu::create([
-            'jenis' => $request->jenis,
-            'nama' => $request->nama,
-            'harga' => $request->harga,
-            'gambar' => $gambarPath,
-        ]);
+            // Membuat record baru dalam database
+            Menu::create([
+                'jenis' => $request->jenis,
+                'nama' => $request->nama,
+                'harga' => $request->harga,
+                'gambar' => $gambarPath,
+            ]);
 
-        return redirect()->route('menu.index')->with('success', 'Menu berhasil ditambahkan.');
+            // Tambahkan pesan sukses ke session
+            Session::flash('success', 'Menu berhasil ditambahkan.');
+
+            // Kirim respons redirect
+            return redirect()->route('menu.index');
+        } catch (\Exception $e) {
+            // Tambahkan pesan error ke session
+            Session::flash('error', 'Terjadi kesalahan saat menambahkan menu.');
+
+            // Kirim respons redirect
+            return redirect()->route('menu.index');
+        }
     }
 
     public function formUbah($id)
     {
         $menu = Menu::findOrFail($id);
+        $menu->harga = number_format($menu->harga, 0, ',', '');
         return view('backend.menus.formUbah', compact('menu'));
     }
 
@@ -75,13 +89,13 @@ class MenuController extends Controller
             'jenis' => 'required',
             'nama' => [
                 'required',
-                'regex:/^[a-zA-Z\s]+$/', //hanya huruf
+                'regex:/^[a-zA-Z\s]+$/',
             ],
             'harga' => [
                 'required',
-                'regex:/^[0-9]+$/', // Hanya angka
+                'regex:/^[0-9]+$/',
             ],
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Batasan ukuran gambar: 2MB
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Batasan ukuran gambar: 2MB
         ], [
             'nama.regex' => 'Nama menu hanya boleh terdiri dari huruf dan spasi.',
             'harga.regex' => 'Harga menu hanya boleh terdiri dari angka.',
@@ -90,22 +104,39 @@ class MenuController extends Controller
         // Menemukan menu yang akan diubah
         $menu = Menu::findOrFail($id);
 
-        $gambar = $request->file('gambar');
-        $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
-        $gambar->move(public_path('menu_images'), $nama_gambar);
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $nama_gambar = time() . '_' . $gambar->getClientOriginalName();
+            $gambar->move(public_path('menu_images'), $nama_gambar);
 
-        // Menyimpan gambar
-        $gambarPath = 'menu_images/' . $nama_gambar;
+            // Menyimpan gambar
+            $gambarPath = 'menu_images/' . $nama_gambar;
+        } else {
+            // Jika tidak ada gambar yang diunggah, gunakan gambar yang ada sebelumnya
+            $gambarPath = $menu->gambar;
 
-        // Menyimpan perubahan pada menu
-        $menu->update([
-            'jenis' => $request->jenis,
-            'nama' => $request->nama,
-            'harga' => $request->harga,
-            'gambar' => $gambarPath,
-        ]);
+            try {
+                // Menyimpan perubahan pada menu
+                $menu->update([
+                    'jenis' => $request->jenis,
+                    'nama' => $request->nama,
+                    'harga' => $request->harga,
+                    'gambar' => $gambarPath,
+                ]);
 
-        return redirect()->route('menu.index')->with('success', 'Menu berhasil diupdate.');
+                // Tambahkan pesan sukses ke session
+                Session::flash('success', 'Menu berhasil diupdate.');
+
+                // Kirim respons redirect
+                return redirect()->route('menu.index');
+            } catch (\Exception $e) {
+                // Tambahkan pesan error ke session
+                Session::flash('error', 'Terjadi kesalahan saat mengubah menu.');
+
+                // Kirim respons redirect
+                return redirect()->route('menu.index');
+            }
+        }
     }
 
     public function hapus($id)
@@ -114,9 +145,9 @@ class MenuController extends Controller
             $menu = Menu::findOrFail($id);
             $menu->delete();
 
-            return response()->json(['success' => 'Menu berhasil dihapus.'], 200);
+            return response()->json(['success' => true, 'message' => 'Menu berhasil dihapus.'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat menghapus menu.'], 500);
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menghapus menu.'], 500);
         }
     }
 }

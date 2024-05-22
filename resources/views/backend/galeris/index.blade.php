@@ -100,7 +100,7 @@
                         <tbody>
                         <!-- Di sini Anda akan menampilkan data galeri -->
                         @foreach ($galeri as $index => $item)
-                            <tr>
+                            <tr id="row_{{ $item->id }}">
                                 <td>{{ $index + 1 }}</td>
                                 <td><img src="{{ asset($item->gambar) }}" alt="{{ $item->deskripsi }}"
                                          width="100"></td>
@@ -168,9 +168,7 @@
         .catch(error => {
             console.error(error);
         });
-</script>
 
-<script>
     document.addEventListener('DOMContentLoaded', function () {
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         window.csrfToken = csrfToken;
@@ -201,18 +199,13 @@
             }
         }).then(response => {
             if (response.ok) {
-                // Hapus baris tabel dari DOM
                 document.getElementById('row_' + id).remove();
-                // Tampilkan pesan sukses menggunakan Swal
                 Swal.fire('Sukses!', 'Galeri berhasil dihapus.', 'success');
             } else {
-                // Tangani kasus jika respons tidak berhasil
                 console.error('Gagal menghapus galeri');
-                console.error(response.statusText);
-                Swal.fire('Gagal!', 'Tidak dapat menghapus galeri.', 'error');
+                Swal.fire('Gagal!', 'Tidak dapat menghapus menu.', 'error');
             }
         }).catch(error => {
-            // Tangani kasus jika terjadi kesalahan pada operasi fetch
             console.error('Terjadi kesalahan:', error);
             Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus galeri.', 'error');
         });
