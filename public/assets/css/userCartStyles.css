@@ -21,7 +21,9 @@ header {
 h1 {
     text-align: left;
     color: #224F34;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
+    margin-left: 40px;
+    font-size: xx-large;
 }
 
 nav {
@@ -105,26 +107,83 @@ nav .right a {
     font-size: 1.2em;
 }
 
-.btn-container {
-    margin-top: 20px;
+
+.total-harga{
+    background-color: #f8f9fa; /* Warna latar belakang */
+    padding: 10px 20px; /* Padding untuk ruang di sekitar teks */
+    border-radius: 8px; /* Border radius untuk sudut melengkung */
+    font-weight: bold; /* Membuat teks menjadi tebal */
+    font-size: 1.2em; /* Ukuran font */
+    color: #343a40; /* Warna teks */
+    text-align: center; /* Menyelaraskan teks ke kanan */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan untuk efek 3D */
+    margin-bottom: 20px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.btn-container button {
-    margin: 0 10px;
+.btn-secondary{
+    color: whitesmoke;
+    background-color: #6c757d;
+    border: 1px solid #6c757d;
+    font-size: 17px;
     padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-
-.btn-pay {
-    background-color: #224F34;
-    color: white;
+.btn-bayar{
+    margin-left: 10px;
+    color: whitesmoke;
+    background-color: #28a745; /* Bootstrap success color */
+    font-size: 18px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .payment-method {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.payment-method label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #224F34;
+    display: contents;
+    margin-bottom: 10px;
+}
+
+.custom-select {
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #8DBA94;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    color: #224F34;
+    appearance: none; /* Remove default arrow in some browsers */
+    -webkit-appearance: none; /* Remove default arrow in Safari */
+    -moz-appearance: none; /* Remove default arrow in Firefox */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="5" viewBox="0 0 4 5"><path fill="%23224F34" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>'); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+}
+
+.custom-select:focus {
+    border-color: #224F34;
+    box-shadow: 0 0 5px rgba(34, 79, 52, 0.5);
+    outline: none;
 }
 
 footer {

@@ -87,8 +87,10 @@
                 <form action="{{ route('contact.prosesTambah') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="editor">Konten:</label>
                         <textarea id="editor" name="editor" class="form-control" rows="5"></textarea>
+                        @error('editor')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <button type="submit" class="mt-3 btn btn-primary">Simpan</button>
                     <a href="{{ route('contact.index') }}" class="mt-3 btn btn-secondary">Kembali</a>

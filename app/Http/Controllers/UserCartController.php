@@ -4,15 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
-
+use App\Models\ItemPesanan;
+use Illuminate\Support\Facades\Auth;
 
 class UserCartController extends Controller
 {
     public function index()
     {
-        // Misalnya, data ini didapatkan dari sesi atau database
-        $cartItems = session()->get('cart', []);
-        $totalPrice = array_sum(array_column($cartItems, 'price'));
+        $iduser = Auth::guard('user')->user()->id;
+        $pesanan = Pesanan::where('iduser', $iduser)->where('status', '=', 0)->first();
+
+        // // Misalnya, data ini didapatkan dari sesi atau database
+        // $cartItems = session()->get('cart', []);
+        // $totalPrice = array_sum(array_column($cartItems, 'price'));
+        $cartItems = ItemPesanan::with('menu')->where('idpesanan', $pesanan->id)->get();
+
+        $totalPrice = 0;
+        foreach ($cartItems  as $ca) {
+            $totalPrice = $totalPrice + $ca->subtotal;
+        }
+
 
         return view('frontend.keranjang_user.index', compact('cartItems', 'totalPrice'));
     }
@@ -37,5 +48,17 @@ class UserCartController extends Controller
 
         // Logika pembayaran dan penyimpanan order
         return redirect()->route('frontend.dashboard_user.index')->with('success', 'Pembayaran berhasil');
+    }
+
+    public function deleteItem($id)
+    {
+        try {
+            $cartItems = ItemPesanan::findOrFail($id);
+            $subtotal = $cartItems->subtotal;
+            $cartItems->delete();
+            return response()->json(['message' => 'Item pesanan berhasil dihapus', 'subtotal' => $subtotal], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal menghapus item pesanan: ' . $e->getMessage()], 500);
+        }
     }
 }

@@ -10,6 +10,15 @@
     <title>Kedai Mdp - Reset Password</title>
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        #layoutAuthentication {
+            background-image:  url('assets/img/bg_rpl_3.jpg'); /* Ganti dengan URL gambar Anda */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh; /* Pastikan elemen mencakup seluruh tinggi viewport */
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -20,8 +29,8 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header bg-success">
-                                    <h3 class="text-center font-weight-light my-4">Lupa Password Kedai Mdp</h3>
+                                <div class="card-header bg-secondary">
+                                    <h3 class="text-center text-white my-4">Lupa Password Kedai Mdp</h3>
                                 </div>
                                 <div class="card-body">
                                     @if (session('status'))

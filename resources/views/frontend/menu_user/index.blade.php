@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - KEDAI MDP</title>
     <link rel="stylesheet" href="{{ asset('assets/css/UserMenuStyles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Include Sweet Alert -->
 </head>
 
 <body>
@@ -36,11 +39,9 @@
                         <h2>{{ $menu->nama }}</h2>
                         <p>Rp {{ number_format($menu->harga, 0) }}</p>
                         <div class="quantity">
-                            <label for="quantity_{{ $menu->id }}">Jumlah:</label>
-                            <input type="number" id="quantity_{{ $menu->id }}"
-                                name="quantity_{{ $menu->id }}" class="quantity-input"
-                                data-id="{{ $menu->id }}" data-name="{{ $menu->nama }}"
-                                data-price="{{ $menu->harga }}" min="0" max="10" value="0">
+                            <label">Jumlah:</label>
+                                <input type="number" data-idmenu="{{ $menu->id }}" class="quantitymenu"
+                                    min="0" max="10" value="0">
                         </div>
                     </div>
                 @endforeach
@@ -62,7 +63,38 @@
             <p>Contact</p>
         </div>
     </footer>
+
     <script>
+        $(function() {
+            // console.log("coba test");
+            $(".quantitymenu").change(function() {
+                var qty = $(this).val();
+                var idmenu = $(this).data("idmenu");
+
+                var url = window.location.origin + "/menu/chart?idmenu=" + idmenu + "&qty=" + qty;
+
+                $.ajax({
+                    url: url,
+                    type: 'get', // performing a POST request
+                    dataType: 'json',
+                    success: function(data, status) {
+                        if (status == "success") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: 'Ditambahkan ke keranjang'
+                                // alert("Berhasil ditambah ke keranjang");
+                            });
+                        }
+                    }
+                });
+
+
+            });
+        });
+    </script>
+
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const quantityInputs = document.querySelectorAll('.quantity-input');
             const totalSection = document.getElementById('total-section');
@@ -120,7 +152,7 @@
             // Redirect to the cart page
             window.location.href = "{{ route('frontend.cart_user.index') }}";
         }
-    </script>
+    </script> --}}
 </body>
 
 </html>

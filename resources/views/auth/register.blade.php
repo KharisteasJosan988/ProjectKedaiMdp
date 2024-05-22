@@ -10,6 +10,15 @@
     <title>Kedai Mdp</title>
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        #layoutAuthentication {
+            background-image:  url('assets/img/bg_rpl_3.jpg'); /* Ganti dengan URL gambar Anda */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh; /* Pastikan elemen mencakup seluruh tinggi viewport */
+        }
+    </style>
 </head>
 
 <body>
@@ -20,8 +29,8 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header bg-success">
-                                    <h3 class="text-center font-weight-light my-4">Registrasi Kedai Mdp</h3>
+                                <div class="card-header bg-secondary">
+                                    <h3 class="text-center text-white my-4">Registrasi Kedai Mdp</h3>
                                 </div>
                                 <div class="card-body">
                                     <!-- Contoh di dalam file blade -->
@@ -43,6 +52,14 @@
                                     @endif
                                     <form action="{{ route('register') }}" method="POST">
                                         @csrf
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="name" type="text" name="name"
+                                                placeholder="name@example.com" value="{{ old('name') }}" required />
+                                            <label for="inputEmail">Nama Pengguna</label>
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="inputEmail" type="email" name="email"
                                                 placeholder="name@example.com" value="{{ old('email') }}" required />

@@ -21,7 +21,9 @@ class ContactController extends Controller
     public function prosesTambah(Request $request)
     {
         $request->validate([
-            'editor' => 'required',
+            'editor' => [
+                'required',
+            ]
         ]);
 
         $konten = $request->editor;
@@ -44,7 +46,9 @@ class ContactController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'konten' => 'required',
+            'konten' => [
+                'required',
+            ]
         ]);
 
         $contact = Contact::findOrFail($id);

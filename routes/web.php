@@ -12,6 +12,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserCartController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserMenuController;
+use App\Http\Controllers\PesananController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -92,23 +93,12 @@ Route::prefix('dashboard_user')->group(function () {
 });
 
 Route::get('/menu', [UserMenuController::class, 'index'])->name('frontend.menu_user.index');
+
 Route::get('/keranjang', [UserCartController::class, 'index'])->name('frontend.cart_user.index');
 Route::post('/checkout', [UserCartController::class, 'checkout'])->name('checkout');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::delete('/keranjang/item/{id}', [UserCartController::class, 'deleteItem'])->name('item.delete');
 
 Route::get('/upload', [UploadController::class, 'form'])->name('upload.form');
 Route::post('/upload', [UploadController::class, 'proses'])->name('upload.proses');
+
+Route::get('/menu/chart', [PesananController::class, 'chart'])->name('pesanan.chart');

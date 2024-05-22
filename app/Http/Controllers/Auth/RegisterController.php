@@ -30,6 +30,7 @@ class RegisterController extends Controller
     {
         // Validasi input
         $request->validate([
+            'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
@@ -38,6 +39,7 @@ class RegisterController extends Controller
             ],
             'password' => 'required|min:8|confirmed',
         ], [
+            'name.required' => 'Nama wajib diisi.',
             'email.required' => 'Alamat Email wajib diisi.',
             'email.email' => 'Alamat Email harus berupa email yang valid.',
             'email.regex' => 'Alamat Email harus dimulai dengan huruf dan hanya mengandung karakter yang valid.',

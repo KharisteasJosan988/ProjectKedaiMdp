@@ -21,11 +21,16 @@ class GaleriController extends Controller
 
     public function prosesTambahGaleri(Request $request)
     {
-        // Simpan data galeri yang baru ditambahkan
-        // Validasi data yang dikirimkan dari form tambah galeri
         $request->validate([
-            'deskripsi' => 'required|string',
+            'deskripsi' => [
+                'required',
+                'regex:/^[a-zA-Z\s]+$/',
+            ],
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
+        ], [
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong',
+            'deskripsi.regex' => 'Deskripsi hanya bisa diisi dengan huruf',
+            'gambar.required' => 'Gambar tidak boleh kosong',
         ]);
 
         // Proses penyimpanan data galeri baru
@@ -80,10 +85,12 @@ class GaleriController extends Controller
 
     public function hapus($id)
     {
-        // Hapus galeri dengan id tertentu
-        $galeri = Galeri::findOrFail($id);
-        $galeri->delete();
-
-        return redirect()->route('galeri.index')->with('success', 'Galeri berhasil dihapus.');
+        try {
+            $galeri = Galeri::findOrFail($id);
+            $galeri->delete();
+            return response()->json(['message' => 'Galeri berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal menghapus galeri: ' . $e->getMessage()], 500);
+        }
     }
 }
