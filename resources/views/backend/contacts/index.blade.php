@@ -52,7 +52,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-cutlery"></i></div>
                             Menu
                         </a>
-                        <a class="nav-link" href="tables.html">
+                        <a class="nav-link" href="{{route('cart.index')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
                         </a>

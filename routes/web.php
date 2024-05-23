@@ -98,7 +98,11 @@ Route::get('/keranjang', [UserCartController::class, 'index'])->name('frontend.c
 Route::post('/checkout', [UserCartController::class, 'checkout'])->name('checkout');
 Route::delete('/keranjang/item/{id}', [UserCartController::class, 'deleteItem'])->name('item.delete');
 
+Route::get('/menu/chart', [PesananController::class, 'chart'])->name('pesanan.chart');
+
+
+
+
+
 Route::get('/upload', [UploadController::class, 'form'])->name('upload.form');
 Route::post('/upload', [UploadController::class, 'proses'])->name('upload.proses');
-
-Route::get('/menu/chart', [PesananController::class, 'chart'])->name('pesanan.chart');

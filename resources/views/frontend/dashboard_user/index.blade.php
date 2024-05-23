@@ -17,8 +17,8 @@
             <div class="center">
                 <ul>
                     <li><a href="{{ route('frontend.dashboard_user.index') }}">Dashboard</a></li>
-                    <li><a href="{{route('frontend.menu_user.index')}}">Menu</a></li>
-                    <li><a href="{{route('frontend.cart_user.index')}}">Keranjang</a></li>
+                    <li><a href="{{ route('frontend.menu_user.index') }}">Menu</a></li>
+                    <li><a href="{{ route('frontend.cart_user.index') }}">Keranjang</a></li>
                 </ul>
             </div>
             <div class="right">

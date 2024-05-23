@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard Admin</title>
+    <title>Galeri Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -52,7 +53,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-cutlery"></i></div>
                             Menu
                         </a>
-                        <a class="nav-link" href="tables.html">
+                        <a class="nav-link" href="{{ route('cart.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
                         </a>
@@ -80,29 +81,52 @@
                         <li class="breadcrumb-item active">Admin</li>
                     </ol>
 
-                    <div class="mt-4">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Jumlah</th>
-                                    <th>Harga</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach ($menus as $index => $menu)
-                                    <tr id="row_{{ $index }}">
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $menu->nama }}</td>
-                                        <td>Rp {{ number_format($menu->harga, 0) }}</td>
-                                        <td><img id="preview_{{ $index }}" src="{{ asset($menu->gambar) }}"
-                                                alt="{{ $menu->nama }}" width="100"></td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-shopping-cart me-1"></i>
+                            Daftar Pesanan Pelanggan
+                        </div>
+                        <div class="card-body">
+                            {{-- <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Pelanggan</th>
+                                            <th>Total Harga</th>
+                                            <th>Metode Pembayaran</th>
+                                            <th>Status Pembayaran</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pesanans as $pesanan)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $pesanan->customer_name }}</td>
+                                                <td>Rp {{ number_format($order->total_price, 0) }}</td>
+                                                <td>{{ $pesanan->payment_method }}</td>
+                                                <td>{{ $pesanan->payment_status }}</td>
+                                                <td>
+                                                    <a href="{{ route('admin.orders.show', $pesanan->id) }}"
+                                                        class="btn btn-info btn-sm">Lihat Detail</a>
+                                                    @if ($pesanan->payment_status == 'Menunggu Pembayaran')
+                                                        <form
+                                                            action="{{ route('admin.orders.approve', $pesanan->id) }}"
+                                                            method="POST" style="display: inline;">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-success btn-sm">Setujui
+                                                                Pembayaran</button>
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div> --}}
+                        </div>
                     </div>
 
                 </div>
@@ -140,64 +164,8 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
 
-        function confirmDelete(id) {
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Anda tidak akan dapat mengembalikan ini!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    deleteMenu(id);
-                }
-            });
-        }
 
-        function deleteMenu(id) {
-            fetch(`{{ route('menu.hapus', ':id') }}`.replace(':id', id), {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    document.getElementById('row_' + id).remove();
-                    Swal.fire('Sukses!', 'Menu berhasil dihapus.', 'success');
-                } else {
-                    console.error('Gagal menghapus kontak');
-                    Swal.fire('Gagal!', 'Tidak dapat menghapus menu.', 'error');
-                }
-            }).catch(error => {
-                console.error('Terjadi kesalahan:', error);
-                Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus menu.', 'error');
-            });
-        }
-    </script>
-    <script>
-        function tampilkanPreview(input, idPreview) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#' + idPreview).attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </body>
 
 </html>
