@@ -87,45 +87,32 @@
                             Daftar Pesanan Pelanggan
                         </div>
                         <div class="card-body">
-                            {{-- <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                            <table class="table table-bordered table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama User</th>
+                                        <th>Status Pesanan</th>
+                                        <th>Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($pesanan as $row)
                                         <tr>
-                                            <th>No.</th>
-                                            <th>Nama Pelanggan</th>
-                                            <th>Total Harga</th>
-                                            <th>Metode Pembayaran</th>
-                                            <th>Status Pembayaran</th>
-                                            <th>Aksi</th>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $row->user->name }}</td>
+                                            <td>{{ $row->status == 0 ? 'Belum diproses' : 'Sudah diproses' }}</td>
+                                            <td>
+                                                <a href="{{ route('cart.detail', $row->id) }}">Lihat</a>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($pesanans as $pesanan)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $pesanan->customer_name }}</td>
-                                                <td>Rp {{ number_format($order->total_price, 0) }}</td>
-                                                <td>{{ $pesanan->payment_method }}</td>
-                                                <td>{{ $pesanan->payment_status }}</td>
-                                                <td>
-                                                    <a href="{{ route('admin.orders.show', $pesanan->id) }}"
-                                                        class="btn btn-info btn-sm">Lihat Detail</a>
-                                                    @if ($pesanan->payment_status == 'Menunggu Pembayaran')
-                                                        <form
-                                                            action="{{ route('admin.orders.approve', $pesanan->id) }}"
-                                                            method="POST" style="display: inline;">
-                                                            @csrf
-                                                            <button type="submit"
-                                                                class="btn btn-success btn-sm">Setujui
-                                                                Pembayaran</button>
-                                                        </form>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div> --}}
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            {!! $pesanan->links() !!}
                         </div>
                     </div>
 

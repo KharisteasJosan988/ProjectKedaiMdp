@@ -173,7 +173,7 @@
                     Swal.fire({
                         title: "SILAKAN MELAKUKAN PEMBAYARAN",
                         html: `${totalHarga}<br><br>TUNJUKKAN BUKTI PEMBAYARAN KE KASIR`,
-                        imageUrl: "{{asset('assets/img/qris.png')}}",
+                        imageUrl: "{{ asset('assets/img/qris.png') }}",
                         imageWidth: 400,
                         imageHeight: 400,
                         imageAlt: "QRIS"

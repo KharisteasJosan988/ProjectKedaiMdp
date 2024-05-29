@@ -26,7 +26,8 @@ class PesananController extends Controller
         if ($check === null) {
             $pesanan = new Pesanan();
             $pesanan->iduser = $iduser;
-            $idPesanan = $pesanan->save();
+            $pesanan->save();
+            $idPesanan = $pesanan->id;
         }else{
             $idPesanan =  $check->id;
         }

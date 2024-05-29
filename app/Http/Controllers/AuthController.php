@@ -38,7 +38,7 @@ class AuthController extends Controller
         } else if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->intended('/user/dashboard');
         } else {
-            return redirect('/')->withErrors(['login' => 'Wrong email & password'])->withInput();
+            return redirect('/')->withErrors(['login' => 'Email dan/atau password salah'])->withInput();
         }
     }
 

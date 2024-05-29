@@ -6,6 +6,7 @@ use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use App\Models\ItemPesanan;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Menu;
 
 class UserCartController extends Controller
 {
@@ -14,16 +15,18 @@ class UserCartController extends Controller
         $iduser = Auth::guard('user')->user()->id;
         $pesanan = Pesanan::where('iduser', $iduser)->where('status', '=', 0)->first();
 
-        // // Misalnya, data ini didapatkan dari sesi atau database
-        // $cartItems = session()->get('cart', []);
-        // $totalPrice = array_sum(array_column($cartItems, 'price'));
-        $cartItems = ItemPesanan::with('menu')->where('idpesanan', $pesanan->id)->get();
-
         $totalPrice = 0;
-        foreach ($cartItems  as $ca) {
-            $totalPrice = $totalPrice + $ca->subtotal;
-        }
+        $cartItems = [];
 
+        if($pesanan !== null){
+            // // Misalnya, data ini didapatkan dari sesi atau database
+            // $cartItems = session()->get('cart', []);
+            // $totalPrice = array_sum(array_column($cartItems, 'price'));
+            $cartItems = ItemPesanan::with('menu')->where('idpesanan', $pesanan->id)->get();
+            foreach ($cartItems  as $ca) {
+                $totalPrice = $totalPrice + $ca->subtotal;
+            }
+        }
 
         return view('frontend.keranjang_user.index', compact('cartItems', 'totalPrice'));
     }

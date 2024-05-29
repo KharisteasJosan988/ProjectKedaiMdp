@@ -67,6 +67,10 @@ Route::post('/menu/ubah/{id}', [MenuController::class, 'prosesUbah'])->name('men
 Route::delete('/menu/hapus/{id}', [MenuController::class, 'hapus'])->name('menu.hapus');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart/detail/{id}', [CartController::class, 'detail'])->name('cart.detail');
+Route::post('/cart/co', [CartController::class, 'co'])->name('cart.co');
+// Route::delete('/cart/detail/{id}', [CartController::class, 'deleteDetail'])->name('detail.delete');
+
 Route::get('/form-tambah-cart', [CartController::class, 'formTambah'])->name('cart.formTambah');
 Route::post('/cart/tambah', [CartController::class, 'prosesTambah'])->name('cart.prosesTambah');
 Route::get('/cart/{id}/ubah', [CartController::class, 'formUbah'])->name('cart.formUbah');

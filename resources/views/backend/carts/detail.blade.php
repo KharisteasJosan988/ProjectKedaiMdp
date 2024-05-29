@@ -1,4 +1,3 @@
-ini form ubah
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +5,10 @@ ini form ubah
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard Admin</title>
+    <title>Galeri Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -17,8 +17,8 @@ ini form ubah
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">
-            <img src="{{ asset('assets/img/logo-kedai-mdp.svg') }}" alt="Kedai Mdp Logo">
+        <a class="navbar-brand ps-3" href="{{ route('admin.dashboard.index') }}">
+            <img src="{{ asset('assets/img/logo-kedai-mdp.svg') }}" alt="Kedai Mdp Logo">Kedai Mdp
         </a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-lg order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
@@ -49,17 +49,21 @@ ini form ubah
                         </a>
 
                         <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="{{ route('menu.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-cutlery"></i></div>
                             Menu
                         </a>
-                        <a class="nav-link" href="{{route('cart.index')}}">
+                        <a class="nav-link" href="{{ route('cart.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Keranjang
                         </a>
-                        <a class="nav-link" href="{{route('galeri.index')}}">
+                        <a class="nav-link" href="{{ route('galeri.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
                             Galeri
+                        </a>
+                        <a class="nav-link" href="{{ route('contact.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
+                            Contact
                         </a>
                     </div>
                 </div>
@@ -72,41 +76,57 @@ ini form ubah
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Edit Menu</h1>
+                    <h1 class="mt-4">Keranjang</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Admin</li>
                     </ol>
-                    <form action="{{ route('menu.prosesUbah', ['id' => $menu->id]) }}" method="POST">
-                        @csrf
-                        @method('POST')
-                        <div class="mb-3">
-                            <label for="jenis" class="form-label">Jenis Menu</label>
-                            <select class="form-select" id="jenis" name="jenis">
-                                <option value="Makanan" {{ $menu->jenis === 'Makanan' ? 'selected' : '' }}>Makanan
-                                </option>
-                                <option value="Minuman" {{ $menu->jenis === 'Minuman' ? 'selected' : '' }}>Minuman
-                                </option>
-                            </select>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-shopping-cart me-1"></i>
+                            Daftar Item Pesanan: {{ $pesanan->user->name }}
                         </div>
-                        <div class="mb-3">
-                            <label for="nama" class="form-label">Nama Menu</label>
-                            <input type="text" class="form-control" id="nama" name="nama"
-                                value="{{ $menu->nama }}">
+                        <div class="card-body">
+                            <table class="table table-bordered table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Menu</th>
+                                        <th>Qty</th>
+                                        <th>Sub Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($cartItems as $row)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $row->menu->nama }}</td>
+                                            <td>{{ $row->qty }}</td>
+                                            <td>{{ $row->subtotal }}</td>
+                                        </tr>
+                                    @endforeach
+
+                                    <tr>
+                                        <td colspan="3">TOTAL</td>
+                                        <td>{{ $totalPrice }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <form id="confirm-form" action="{{ route('cart.co') }}" method="POST"
+                                onsubmit="return confirmSubmit(event)">
+                                @csrf
+                                <input type="hidden" name="idpesanan" value="{{ $pesanan->id }}">
+                                <input type="submit" value="Bayar" class="btn btn-primary">
+                                <a href="{{ route('cart.index') }}" class="btn btn-secondary">Batal</a>
+                            </form>
+
+
                         </div>
-                        <div class="mb-3">
-                            <label for="harga" class="form-label">Harga</label>
-                            <input type="text" class="form-control" id="harga" name="harga"
-                                value="{{ number_format($menu->harga, 0) }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="gambar" class="form-label">Gambar</label>
-                            <input type="file" class="form-control" id="gambar" name="gambar"
-                                onchange="tampilkanPreview(this, 'preview')">
-                            <img id="preview" src="{{ asset($menu->gambar) }}" alt="Preview" width="200">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="{{ route('menu.index') }}" class="btn btn-secondary">Kembali</a>
-                    </form>
+                    </div>
+
                 </div>
             </main>
             <footer class="py-4 bg-success mt-auto">
@@ -125,9 +145,6 @@ ini form ubah
                             </div>
                             <div class="col-6 d-flex align-items-center justify-content-end">
                             </div>
-                            <div class="ml-5">
-                                <a href="{{ route('contact.index') }}" class="ml-3">Contact</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,39 +159,32 @@ ini form ubah
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/datatables-simple-demo.js') }}"></script>
-
     <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        ClassicEditor
-            .create(document.querySelector('#konten'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        function confirmSubmit(event) {
+            event.preventDefault(); // Prevent the form from submitting immediately
 
-        function tampilkanPreview(input, idPreview) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#' + idPreview).attr('src', e.target.result);
+            Swal.fire({
+                title: 'Yakin ingin approve pembayaran?',
+                text: "Anda tidak dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#5cb85c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Approve!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('confirm-form').submit(); // Submit the form programmatically
                 }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $(document).ready(function() {
-            $('#gambar').change(function() {
-                tampilkanPreview(this, 'preview');
             });
-        });
 
-        $(document).ready(function() {
-            tampilkanPreview($('#gambar')[0], 'preview');
-        });
+            return false; // Prevent the default form submission
+        }
     </script>
+
 </body>
 
 </html>
