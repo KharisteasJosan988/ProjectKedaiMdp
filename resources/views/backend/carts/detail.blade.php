@@ -104,13 +104,14 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $row->menu->nama }}</td>
                                             <td>{{ $row->qty }}</td>
-                                            <td>{{ $row->subtotal }}</td>
+                                            <td>Rp {{ number_format($row->subtotal, 0, ',', '.') }}</td>
+
                                         </tr>
                                     @endforeach
 
                                     <tr>
                                         <td colspan="3">TOTAL</td>
-                                        <td>{{ $totalPrice }}</td>
+                                        <td>Rp {{ number_format($totalPrice, 0, ',', '.') }}</td>
                                     </tr>
                                 </tbody>
                             </table>

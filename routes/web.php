@@ -96,11 +96,14 @@ Route::prefix('dashboard_user')->group(function () {
     Route::get('/', [UserDashboardController::class, 'index'])->name('frontend.dashboard_user.index');
 });
 
+Route::get('/contact-info', [ContactController::class, 'getContactInfo'])->name('contact.info');
+
 Route::get('/menu', [UserMenuController::class, 'index'])->name('frontend.menu_user.index');
 
 Route::get('/keranjang', [UserCartController::class, 'index'])->name('frontend.cart_user.index');
 Route::post('/checkout', [UserCartController::class, 'checkout'])->name('checkout');
 Route::delete('/keranjang/item/{id}', [UserCartController::class, 'deleteItem'])->name('item.delete');
+Route::get('/keranjang/chart', [UserCartController::class, 'tambahKeKeranjang'])->name('item.tambah');
 
 Route::get('/menu/chart', [PesananController::class, 'chart'])->name('pesanan.chart');
 

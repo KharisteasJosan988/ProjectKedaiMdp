@@ -13,6 +13,13 @@ class ContactController extends Controller
         return view('backend.contacts.index', compact('contacts'));
     }
 
+    public function getContactInfo()
+    {
+        $contact = Contact::first(); 
+        return response()->json($contact);
+    }
+
+
     public function formTambah()
     {
         return view('backend.contacts.formTambah');

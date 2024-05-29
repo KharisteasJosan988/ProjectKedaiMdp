@@ -9,12 +9,11 @@ class Galeri extends Model
 {
     use HasFactory;
 
-    protected $table = 'galeri'; 
+    protected $table = 'galeri';
 
     protected $fillable = [
         'judul',
         'deskripsi',
         'gambar',
-        // Tambahkan kolom lain yang ingin Anda masukkan ke dalam basis data
     ];
 }

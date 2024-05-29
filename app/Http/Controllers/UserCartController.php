@@ -18,17 +18,48 @@ class UserCartController extends Controller
         $totalPrice = 0;
         $cartItems = [];
 
-        if($pesanan !== null){
+        if ($pesanan !== null) {
             // // Misalnya, data ini didapatkan dari sesi atau database
             // $cartItems = session()->get('cart', []);
             // $totalPrice = array_sum(array_column($cartItems, 'price'));
             $cartItems = ItemPesanan::with('menu')->where('idpesanan', $pesanan->id)->get();
             foreach ($cartItems  as $ca) {
-                $totalPrice = $totalPrice + $ca->subtotal;
+                $totalPrice += $ca->subtotal;
+                // $totalPrice = $totalPrice + $ca->subtotal;
             }
         }
 
+        $cart = [];
+        foreach ($cartItems as $item) {
+            $cart[$item->menu->id] = ['qty' => $item->qty, 'price' => $item->menu->harga];
+        }
+        session()->put('cart', $cart);
+
         return view('frontend.keranjang_user.index', compact('cartItems', 'totalPrice'));
+    }
+
+    public function tambahKeKeranjang(Request $request)
+    {
+        $iduser = Auth::guard('user')->user()->id;
+        $pesanan = Pesanan::firstOrCreate(
+            ['iduser' => $iduser, 'status' => 0],
+            ['total_harga' => 0]
+        );
+
+        $menu = Menu::find($request->idmenu);
+        $itemPesanan = ItemPesanan::firstOrNew(
+            ['idpesanan' => $pesanan->id, 'idmenu' => $menu->id]
+        );
+        $itemPesanan->qty = $request->qty;
+        $itemPesanan->subtotal = $menu->harga * $request->qty;
+        $itemPesanan->save();
+
+        // Update session cart
+        $cart = session()->get('cart', []);
+        $cart[$menu->id] = ['qty' => $request->qty, 'price' => $menu->harga];
+        session()->put('cart', $cart);
+
+        return response()->json(['message' => 'Item berhasil ditambahkan ke keranjang']);
     }
 
     public function checkout(Request $request)
@@ -59,6 +90,12 @@ class UserCartController extends Controller
             $cartItems = ItemPesanan::findOrFail($id);
             $subtotal = $cartItems->subtotal;
             $cartItems->delete();
+
+            // Update session cart
+            $cart = session()->get('cart', []);
+            unset($cart[$cartItems->idmenu]);
+            session()->put('cart', $cart);
+
             return response()->json(['message' => 'Item pesanan berhasil dihapus', 'subtotal' => $subtotal], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Gagal menghapus item pesanan: ' . $e->getMessage()], 500);

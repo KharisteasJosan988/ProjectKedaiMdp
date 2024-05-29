@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KEDAI MDP</title>
     <link rel="stylesheet" href="{{ asset('assets/css/userDashboardStyles.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -57,8 +58,9 @@
             <div class="galeri">
                 <h2>Galeri</h2>
                 <div class="galeri-images">
-                    <img src="{{ asset('assets/img/tampilan_depan_mdp.jpg') }}" alt="Depan Kedai Mdp">
-                    <img src="{{ asset('assets/img/tampilan_belakang_mdp.jpg') }}" alt="Dalam Kedai MDP">
+                    @foreach ($galeri as $item)
+                        <img src="{{ asset($item->gambar) }}" alt="{{ $item->deskripsi }}">
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -69,9 +71,52 @@
             <p>Jl. Ukrim No.23, Cupuwatu I, Purwomartani,<br>
                 Kec. Kalasan, Kabupaten Sleman,<br>
                 Daerah Istimewa Yogyakarta 55571</p>
-            <p>Contact</p>
+            <p id="contactTrigger" style="cursor: pointer; color: blue;">Contact</p>
         </div>
     </footer>
+
+    <!-- Pop-up modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Informasi Kontak</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="contactInfo"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactButton = document.getElementById('contactTrigger');
+            const contactInfoContainer = document.getElementById('contactInfo');
+
+            contactButton.addEventListener('click', function() {
+                fetch("{{ route('contact.info') }}")
+                    .then(response => response.json())
+                    .then(data => {
+                        contactInfoContainer.innerHTML = data.konten;
+                        // Show the modal
+                        var contactModal = new bootstrap.Modal(document.getElementById('contactModal'));
+                        contactModal.show();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching contact info:', error);
+                        contactInfoContainer.innerHTML = 'Error fetching contact info.';
+                    });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
