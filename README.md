@@ -1,68 +1,159 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Kedai MDP Web Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web-based Food & Beverage (F&B) ordering system developed using Laravel and MySQL. The application supports two different user roles (Admin and Customer) with separate authentication systems and dashboards.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Customer Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- User Registration & Login
+- Browse Food & Beverage Menu
+- Add Items to Cart
+- Manage Shopping Cart
+- View Restaurant Information
+- Contact Information Access
 
-## Learning Laravel
+### Admin Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Admin Authentication
+- Dashboard Management
+- Menu Management (Create, Read, Update, Delete)
+- Gallery Management
+- Contact Management
+- Order Monitoring
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Technology Stack
 
-## Laravel Sponsors
+- Laravel 11
+- PHP 8.2
+- MySQL
+- Bootstrap
+- HTML
+- CSS
+- JavaScript
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## User Roles
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+This application uses two separate roles:
 
-## Contributing
+| Role | Description |
+|--------|-------------|
+| Admin | Manages menus, galleries, contacts, and system data |
+| Customer | Browses menu, manages cart, and places orders |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Demo Accounts
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Admin Account
 
-## Security Vulnerabilities
+| Email | Password |
+|---------|----------|
+| admin@mail.com | admin@mail.com |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Customer Account
 
-## License
+| Email | Password |
+|---------|----------|
+| user1@mail.com | user1@mail.com |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# ProjectKedaiMdp
->>>>>>> 6868301766a7d265a81896344febb87d68bf55f1
+---
+
+## Registration
+
+Newly registered accounts are automatically created as Customer accounts.
+
+Administrator accounts cannot be created through the registration page and must be inserted directly into the database or seeded using Laravel Seeder.
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/KharisteasJosan988/ProjectKedaiMdp.git  
+cd ProjectKedaiMdp
+```
+
+### Install Dependencies
+
+```bash
+composer install
+```
+
+### Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### Run Migration
+
+```bash
+php artisan migrate
+```
+
+### Seed Demo Data
+
+```bash
+php artisan db:seed
+```
+
+### Start Development Server
+
+```bash
+php artisan serve
+```
+
+Visit:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## Database Seeder
+
+The project includes predefined accounts through Laravel Seeder.
+
+Seeder file:
+
+```text
+database/seeders/DatabaseSeeder.php
+```
+
+To recreate demo accounts:
+
+```bash
+php artisan db:seed
+```
+
+---
+
+## Screenshots
+
+### Login Page
+
+Authentication page for Admin and Customer users.
+
+### Customer Dashboard
+
+Displays featured menu items, restaurant information, and navigation to menu and cart pages.
+
+### Admin Dashboard
+
+Allows administrators to manage menus, galleries, contacts, and monitor application data.
+
+---
+
+## Author
+
+Kharisteas Josan Sedi
