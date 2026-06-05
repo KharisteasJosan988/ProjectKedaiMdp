@@ -139,6 +139,10 @@ php artisan db:seed
 ---
 
 ## Screenshots
+<img width="1365" height="675" alt="Screenshot 2026-06-05 204018" src="https://github.com/user-attachments/assets/d806288d-7ebb-4870-8e48-ebf099db3e00" />
+<img width="1365" height="638" alt="Screenshot 2026-06-05 204101" src="https://github.com/user-attachments/assets/bd72e137-eaab-443b-8f7b-4e1f96bc31e1" />
+<img width="1362" height="643" alt="Screenshot 2026-06-05 204124" src="https://github.com/user-attachments/assets/c3456844-4c50-469c-8eeb-93e244ab99e3" />
+<img width="1365" height="640" alt="Screenshot 2026-06-05 205021" src="https://github.com/user-attachments/assets/5d9a7136-f82e-4419-a003-100a30a04776" />
 
 ### Login Page
 
